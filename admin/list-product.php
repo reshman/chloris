@@ -74,7 +74,9 @@
                         <h3 class="box-title">Products</h3>
                     </div>
                     <?php
-                        //$sqlProduct = sprintf("SELECT ")
+                        $sqlProduct      = sprintf("SELECT * from product LIMIT 10");
+                        $resultProduct   = mysqli_query($link, $sqlProduct);
+                        if (mysqli_num_rows($resultProduct) > 0) {
                     ?>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -84,11 +86,24 @@
                                 <th>Product Name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <th style="width: 40px">Label</th>
+                                <th style="width: 100px">Actions</th>
                             </tr>
+                            <?php while ($productRow = mysqli_fetch_assoc($resultProduct)) {?>
+                                <tr>
+                                    <td>#</td>
+                                    <td><?php echo $productRow['name']?></td>
+                                    <td><?php echo $productRow['price']?></td>
+                                    <td><?php echo $productRow['qty']?></td>
+                                    <td>
+                                        <button class="btn btn-default btn-success"> <i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></button>
+                                    </td>
+                                </tr>
+                            <?php }?>
 
                         </table>
                     </div>
+                    <?php  } ?>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <ul class="pagination pagination-sm no-margin pull-right">
