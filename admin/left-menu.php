@@ -40,6 +40,16 @@
                     <li><a href="list-product.php"><i class="fa fa-circle-o"></i> List Product</a></li>
                 </ul>
             </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Categories</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="add-category.php"><i class="fa fa-circle-o"></i> Add Category</a></li>
+                    <li><a href="list-category.php"><i class="fa fa-circle-o"></i> List Category</a></li>
+                </ul>
+            </li>
             <!--<li>
                 <a href="pages/widgets.html">
                     <i class="fa fa-th"></i> <span>Widgets</span>

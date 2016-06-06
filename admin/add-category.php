@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chloris | List Product</title>
+    <title>Chloris | Add Product</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -30,6 +30,9 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/select2.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -49,19 +52,52 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Products
-            <small>List Product</small>
+            Category
+            <small>Add Category</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">List Product</li>
+            <li class="active">Add Category</li>
         </ol>
     </section>
 
     <?php
     require_once 'functions.php';
     require_once 'db.php';
+    $_SESSION['error'] = array();
 
+    if (isset($_POST['submit'])) {
+
+
+        $categoryName = sanatizeInput($_POST['category'], 'string');
+        $date         = date('Y-m-d');
+
+        //add product data in to product table
+        $sqlProduct  = sprintf("INSERT INTO category SET
+            category = '%s', created_date = '%s', updated_date = '%s'", $categoryName, $date, $date);
+
+
+        $resultProduct   = mysqli_query($link, $sqlProduct);
+
+        if ($resultProduct) {
+            $_SESSION['error'] = array(
+                'message' => 'Category Sucessfully Added!',
+                'type'    => 'success'
+            );
+
+            header('location:list-category.php');
+
+        } else {
+            $error .= "Error Product add<br/>";
+            $_SESSION['error'] = array(
+                'message' => $error,
+                'type'    => 'danger'
+            );
+
+            header('location:add-category.php');
+        }
+
+    }
 
     ?>
 
@@ -69,82 +105,31 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
+                <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Products</h3>
+                        <h3 class="box-title">Add Product</h3>
                     </div>
-                    <?php
-                        $limit = 2;
-                        $sqlProductCnt = sprintf("SELECT count(*) as cnt FROM product");
-                        $resultCount         = mysqli_query( $link, $sqlProductCnt );
-                        $count               = mysqli_fetch_assoc($resultCount);
-
-                        if ( isset($_GET{'page'} ) ) {
-                            $page = $_GET{'page'}-1;
-                        } else {
-                            $page   = 0;
-                        }
-                        $total_page = ceil($count['cnt']/$limit);
-                        $start = $limit*$page;
-
-                        $sqlProduct      = sprintf("SELECT * from product LIMIT $start, $limit");
-
-                        $resultProduct   = mysqli_query($link, $sqlProduct);
-                        if (mysqli_num_rows($resultProduct) > 0) {
-                    ?>
                     <!-- /.box-header -->
-                    <div class="box-body">
-                        <?php
-                        if(!empty($_SESSION['error'])) :
-                            echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
-                            unset($_SESSION['error']);
-                        endif;
-                        $i=1;
-                        ?>
+                    <!-- form start -->
+                    <form role="form" method="POST">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Category Name</label>
+                                <input type="text" name="category" id="category" class="form-control" id="exampleInputEmail1" placeholder="Category Name">
+                            </div>
 
-                        <table class="table table-bordered">
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Product Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th style="width: 100px">Actions</th>
-                            </tr>
-                            <?php while ($productRow = mysqli_fetch_assoc($resultProduct)) {?>
-                                <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?php echo $productRow['name']?></td>
-                                    <td><?php echo $productRow['price']?></td>
-                                    <td><?php echo $productRow['qty']?></td>
-                                    <td>
-                                        <button class="btn btn-default btn-success"> <i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></button>
-                                    </td>
-                                </tr>
-                            <?php $i++; }?>
 
-                        </table>
-                    </div>
-                    <?php  } ?>
-                    <!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="list-product.php?page=1">&laquo;</a></li>
-                            <?php
-                            for($i=1;$i<=$total_page;$i++){
-                            ?>
-                            <li><a href="list-product.php?page=<?= $i ?>"><?= $i ?></a></li>
-                            <?php } ?>
-                            <li><a href="list-product.php?page=<?= $total_page ?>">&raquo;</a></li>
-                        </ul>
-                    </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
                 </div>
                 <!-- /.box -->
 
-
-                <!-- /.box -->
             </div>
-            <!-- /.col -->
         </div>
     </section>
     <!-- /.content -->
@@ -359,7 +344,7 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="plugins/morris/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
@@ -369,7 +354,7 @@
 <!-- jQuery Knob Chart -->
 <script src="plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>

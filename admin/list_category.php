@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chloris | List Product</title>
+    <title>Chloris | List Category</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -49,12 +49,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Products
-            <small>List Product</small>
+            Category
+            <small>List Category</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">List Product</li>
+            <li class="active">List category</li>
         </ol>
     </section>
 
@@ -74,68 +74,64 @@
                         <h3 class="box-title">Products</h3>
                     </div>
                     <?php
-                        $limit = 2;
-                        $sqlProductCnt = sprintf("SELECT count(*) as cnt FROM product");
-                        $resultCount         = mysqli_query( $link, $sqlProductCnt );
-                        $count               = mysqli_fetch_assoc($resultCount);
+                    $limit = 2;
+                    $sqlProductCnt = sprintf("SELECT count(*) as cnt FROM category");
+                    $resultCount         = mysqli_query( $link, $sqlProductCnt );
+                    $count               = mysqli_fetch_assoc($resultCount);
 
-                        if ( isset($_GET{'page'} ) ) {
-                            $page = $_GET{'page'}-1;
-                        } else {
-                            $page   = 0;
-                        }
-                        $total_page = ceil($count['cnt']/$limit);
-                        $start = $limit*$page;
+                    if ( isset($_GET{'page'} ) ) {
+                        $page = $_GET{'page'}-1;
+                    } else {
+                        $page   = 0;
+                    }
+                    $total_page = ceil($count['cnt']/$limit);
+                    $start = $limit*$page;
 
-                        $sqlProduct      = sprintf("SELECT * from product LIMIT $start, $limit");
+                    $sqlProduct      = sprintf("SELECT * from category LIMIT $start, $limit");
 
-                        $resultProduct   = mysqli_query($link, $sqlProduct);
-                        if (mysqli_num_rows($resultProduct) > 0) {
-                    ?>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <?php
-                        if(!empty($_SESSION['error'])) :
-                            echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
-                            unset($_SESSION['error']);
-                        endif;
-                        $i=1;
+                    $resultProduct   = mysqli_query($link, $sqlProduct);
+                    if (mysqli_num_rows($resultProduct) > 0) {
                         ?>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <?php
+                            if(!empty($_SESSION['error'])) :
+                                echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
+                                unset($_SESSION['error']);
+                            endif;
+                            $i=1;
+                            ?>
 
-                        <table class="table table-bordered">
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>Product Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th style="width: 100px">Actions</th>
-                            </tr>
-                            <?php while ($productRow = mysqli_fetch_assoc($resultProduct)) {?>
+                            <table class="table table-bordered">
                                 <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?php echo $productRow['name']?></td>
-                                    <td><?php echo $productRow['price']?></td>
-                                    <td><?php echo $productRow['qty']?></td>
-                                    <td>
-                                        <button class="btn btn-default btn-success"> <i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></button>
-                                    </td>
+                                    <th style="width: 10px">#</th>
+                                    <th>Category Name</th>
+                                    <th style="width: 300px">Actions</th>
                                 </tr>
-                            <?php $i++; }?>
+                                <?php while ($productRow = mysqli_fetch_assoc($resultProduct)) {?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td><?php echo $productRow['category']?></td>
+                                        <td>
+                                            <a href="edit_category.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
+                                            <a href="delete_category.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php $i++; }?>
 
-                        </table>
-                    </div>
+                            </table>
+                        </div>
                     <?php  } ?>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="list-product.php?page=1">&laquo;</a></li>
+                            <li><a href="list_category.php?page=1">&laquo;</a></li>
                             <?php
                             for($i=1;$i<=$total_page;$i++){
-                            ?>
-                            <li><a href="list-product.php?page=<?= $i ?>"><?= $i ?></a></li>
+                                ?>
+                                <li><a href="list_category.php?page=<?= $i ?>"><?= $i ?></a></li>
                             <?php } ?>
-                            <li><a href="list-product.php?page=<?= $total_page ?>">&raquo;</a></li>
+                            <li><a href="list_category.php?page=<?= $total_page ?>">&raquo;</a></li>
                         </ul>
                     </div>
                 </div>
