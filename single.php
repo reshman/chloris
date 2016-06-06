@@ -6,17 +6,14 @@ if ($_GET['id']) {
     $sqlResult = mysqli_query($link, $sqlProduct);
     if (mysqli_num_rows($sqlResult)) {
         $row = mysqli_fetch_assoc($sqlResult);
-        $id = $row['id'];
+        $product_id = $row['id'];
         $name = $row['name'];
         $description = $row['description'];
-//			$stock=$row['stock'];
-//			$mrp=$row['mrp'];
-			$price=$row['price'];
-//			$field1=$row['field1'];
-//			$field2=$row['field2'];
-//			$field3=$row['field3'];
-//			$field4=$row['field4'];
-//			$field5=$row['field5'];
+        $stock = $row['qty'];
+        $price = $row['price'];
+        $sprice = $row['sprice'];
+        $specification = $row['specification'];
+
 //			$category=$row['category'];
 //			$image1= $row['image1'];
 //			$image2=$row['image2'];
@@ -97,7 +94,7 @@ if ($_GET['id']) {
                     </div>
                     <div class="single-right">
                         <h2><?php echo $name; ?></h2>
-                        <div class="id"><h4>ID: <?php echo $id; ?></h4></div>
+                        <div class="id"><h4>ID: <?php echo $product_id; ?></h4></div>
                         <form action="" class="sky-form">
                             <fieldset>					
                                 <section>
@@ -121,8 +118,8 @@ if ($_GET['id']) {
                             <div class="prdt-cost">
                                 <ul>
                                     <li>Stock: <?php echo $stock ?></li>
-                                    <li>MRP: SGD <del><?php echo $mrp ?></del></li>								 
-                                    <li class="active">Sellling Price: SGD <span class="active"><?php echo $price ?></span></li>
+                                    <li>MRP: SGD <del><?php echo $price ?></del></li>								 
+                                    <li class="active">Sellling Price: SGD <span class="active"><?php echo $sprice ?></span></li>
                                     <a href="#">BUY NOW</a>
                                 </ul>
                             </div>
@@ -138,14 +135,7 @@ if ($_GET['id']) {
                             <div class="clearfix"></div>
                         </div>
                         <div class="item-list">
-                            <ul>
-                                <?php if ($field1 != "") { ?><li><?php echo $field1 ?></li><?php } ?>
-                                <?php if ($field2 != "") { ?><li><?php echo $field2 ?></li><?php } ?>
-                                <?php if ($field3 != "") { ?><li><?php echo $field3 ?></li><?php } ?>
-                                <?php if ($field4 != "") { ?><li><?php echo $field4 ?></li><?php } ?>
-                                <?php if ($field5 != "") { ?><li><?php echo $field5 ?></li><?php } ?>
-
-                            </ul>
+                            <?= $specification; ?>
                         </div>
                         <div class="single-bottom1">
                             <h6>Details</h6>

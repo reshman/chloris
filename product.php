@@ -30,7 +30,7 @@ include 'header.php';
 <div class="product-model">	 
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="index1.html">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li class="active">Products</li>
         </ol>
         <h2>Our Products</h2>	

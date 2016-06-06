@@ -68,7 +68,8 @@
 
 
         $flowername  = sanatizeInput($_POST['flowername'], 'string');
-        $description = sanatizeInput($_POST['description'], 'string');
+        $description = trim($_POST['description']);
+        $specification = trim($_POST['specification']);
         $qty      = sanatizeInput($_POST['qty'], 'int');
         $price    = sanatizeInput($_POST['price'], 'int');
         $sprice   = sanatizeInput($_POST['sprice'], 'int');
@@ -107,14 +108,15 @@
             exit();
         }
 
-
         //add product data in to product table
-        $sqlProduct = sprintf("INSERT INTO product SET product_id = '%s',
+        $sqlProduct = sprintf("INSERT INTO product SET
             name = '%s',
             description = '%s',
             qty = '%s',
             price ='%s',
-            sprice = '%s', category = '%s'", 1, $flowername, $description, $qty, $price, $sprice, $category);
+            sprice = '%s',
+            specification = '%s',
+            category = '%s'", $flowername, $description, $qty, $price, $sprice, $specification, $category); 
 
 
         $resultProduct   = mysqli_query($link, $sqlProduct);
@@ -170,6 +172,11 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1" >Description</label>
                             <textarea class="textarea" name="description" placeholder="Description" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" >Specification</label>
+                            <textarea class="textarea" name="specification" placeholder="Specification" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                         </div>
 
                         <?php
