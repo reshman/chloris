@@ -46,8 +46,8 @@
                     <span>Categories</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="add-category.php"><i class="fa fa-circle-o"></i> Add Category</a></li>
-                    <li><a href="list-category.php"><i class="fa fa-circle-o"></i> List Category</a></li>
+                    <li><a href="add_category.php"><i class="fa fa-circle-o"></i> Add Category</a></li>
+                    <li><a href="list_category.php"><i class="fa fa-circle-o"></i> List Category</a></li>
                 </ul>
             </li>
             <!--<li>

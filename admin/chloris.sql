@@ -16,6 +16,22 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`chloris` /*!40100 DEFAULT CHARACTER SET
 
 USE `chloris`;
 
+/*Table structure for table `category` */
+
+DROP TABLE IF EXISTS `category`;
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(70) NOT NULL,
+  `created_date` date DEFAULT NULL,
+  `updated_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+/*Data for the table `category` */
+
+insert  into `category`(`id`,`category`,`created_date`,`updated_date`) values (10,'to','2016-06-06','2016-06-06'),(11,'edit','2016-06-06','2016-06-06');
+
 /*Table structure for table `product` */
 
 DROP TABLE IF EXISTS `product`;
@@ -28,12 +44,13 @@ CREATE TABLE `product` (
   `qty` int(11) NOT NULL,
   `price` decimal(10,4) NOT NULL,
   `sprice` decimal(10,4) DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `product` */
 
-insert  into `product`(`id`,`product_id`,`name`,`description`,`qty`,`price`,`sprice`) values (1,1,'','',1,0.0000,0.0000),(2,1,'','',1,0.0000,0.0000),(3,1,'','',1,0.0000,0.0000),(4,1,'Test','arg seth',1,222.0000,333.0000);
+insert  into `product`(`id`,`product_id`,`name`,`description`,`qty`,`price`,`sprice`,`category_id`) values (1,1,'prod_name','',1,0.0000,0.0000,0),(2,1,'prod_name','',1,0.0000,0.0000,0),(3,1,'prod_name','',1,0.0000,0.0000,0),(4,1,'prod_name','advad',1,1500.0000,1600.0000,0),(5,1,'prod_name','',1,0.0000,0.0000,0);
 
 /*Table structure for table `product_reg` */
 
@@ -100,7 +117,7 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `password` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
