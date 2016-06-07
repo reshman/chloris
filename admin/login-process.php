@@ -14,7 +14,7 @@ $result   = mysqli_query($link, $sqlAuth);
 
 if (mysqli_num_rows($result) > 0) {
     $users = mysqli_fetch_object($result);
-    $_SESSION['auth'] = array('id' => $users->id, 'username' => $users->username);
+    $_SESSION['auth'] = array('id' => $users->id, 'username' => $users->email);
     header('location:dashboard.php');
 } else {
     $_SESSION['error'] = array(

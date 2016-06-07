@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<?php include 'logincheck.php';?>
 <html>
-    <?php include 'logincheck.php';?>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -62,6 +62,7 @@
                 <?php
                 require_once 'functions.php';
                 require_once 'db.php';
+                $pid = $_GET['id'];
                 ?>
 
                 <!-- Main content -->
@@ -73,23 +74,13 @@
                                     <h3 class="box-title">Products</h3>
                                 </div>
                                 <?php
-                                $limit = 10;
-                                $sqlProductCnt = sprintf("SELECT count(*) as cnt FROM product");
-                                $resultCount = mysqli_query($link, $sqlProductCnt);
-                                $count = mysqli_fetch_assoc($resultCount);
-
-                                if (isset($_GET{'page'})) {
-                                    $page = $_GET{'page'} - 1;
-                                } else {
-                                    $page = 0;
-                                }
-                                $total_page = ceil($count['cnt'] / $limit);
-                                $start = $limit * $page;
-
-                                $sqlProduct = sprintf("SELECT * from product LIMIT $start, $limit");
-
+                                $sqlProduct = sprintf("SELECT * from product WHERE id=%d", $pid);
                                 $resultProduct = mysqli_query($link, $sqlProduct);
                                 if (mysqli_num_rows($resultProduct) > 0) {
+                                    $productRow = mysqli_fetch_assoc($resultProduct);
+                                    $sqlCategory = sprintf("SELECT category FROM category WHERE id=%d", $productRow['category_id']);
+                                    $resultCategory = mysqli_query($link, $sqlCategory);
+                                    $categoryRow = mysqli_fetch_assoc($resultCategory);
                                     ?>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -102,45 +93,25 @@
                                         ?>
 
                                         <table class="table table-bordered">
-                                            <tr>
-                                                <th style="width: 10px">#</th>
-                                                <th>Product Name</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>View More</th>
-                                                <th style="width: 100px">Actions</th>
+                                            <tr><th>Product Id</th><td><?php echo $productRow['id'] ?></td></tr>
+                                            <tr><th>Product Name</th><td><?php echo $productRow['name'] ?></td></tr>
+                                            <tr><th>Product Description</th><td><?php echo $productRow['description'] ?></td></tr>
+                                            <tr><th>Product Specification</th><td><?php echo $productRow['specification'] ?></td></tr>
+                                            <tr><th>Price</th><td><?php echo $productRow['price'] ?></td></tr>
+                                            <tr><th>Selling Price</th><td><?php echo $productRow['sprice'] ?></td></tr>
+                                            <tr><th>Quantity</th><td><?php echo $productRow['qty'] ?></td></tr>
+                                            <tr><th>Category</th><td><?php echo $categoryRow['category'] ?></td></tr>
+                                            <tr><th style="width: 100px">Actions</th>
+                                                <td>
+                                                    <a href="edit_product.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
+                                                    <a href="javascript:void(0)" onclick="deleteConfirm('delete_product.php?id=<?= $productRow['id'] ?>')" class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></a>
+                                                </td>
                                             </tr>
-                                            <?php while ($productRow = mysqli_fetch_assoc($resultProduct)) { ?>
-                                                <tr>
-                                                    <td><?= $i ?></td>
-                                                    <td><?php echo $productRow['name'] ?></td>
-                                                    <td><?php echo $productRow['price'] ?></td>
-                                                    <td><?php echo $productRow['qty'] ?></td>
-                                                    <td><a href="view_product.php?id=<?php echo $productRow['id'] ?>">view more</a></td>
-                                                    <td>
-                                                        <a href="edit_product.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
-                                                        <a href="javascript:void(0)" onclick="deleteConfirm('delete_product.php?id=<?= $productRow['id'] ?>')" class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <?php $i++;
-                                            }
-                                            ?>
 
                                         </table>
                                     </div>
-<?php } ?>
+                                <?php } ?>
                                 <!-- /.box-body -->
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="list-product.php?page=1">&laquo;</a></li>
-                                        <?php
-                                        for ($i = 1; $i <= $total_page; $i++) {
-                                            ?>
-                                            <li><a href="list-product.php?page=<?= $i ?>"><?= $i ?></a></li>
-<?php } ?>
-                                        <li><a href="list-product.php?page=<?= $total_page ?>">&raquo;</a></li>
-                                    </ul>
-                                </div>
                             </div>
                             <!-- /.box -->
 
@@ -153,7 +124,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-<?php include_once 'footer.php' ?>
+            <?php include_once 'footer.php' ?>
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
@@ -357,7 +328,7 @@
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
-                                                    $.widget.bridge('uibutton', $.ui.button);
+            $.widget.bridge('uibutton', $.ui.button);
         </script>
         <!-- Bootstrap 3.3.6 -->
         <script src="bootstrap/js/bootstrap.min.js"></script>

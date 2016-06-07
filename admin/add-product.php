@@ -1,4 +1,6 @@
-<?php ob_start();?>
+<?php
+include 'logincheck.php';
+ob_start();?>
 <!DOCTYPE html>
 <html>
 <head>
