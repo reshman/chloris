@@ -39,7 +39,6 @@ ob_start();?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-<?php session_start();?>
 <?php include_once 'header.php';?>
 <!-- Left side column. contains the logo and sidebar -->
 <?php include_once 'left-menu.php';?>
