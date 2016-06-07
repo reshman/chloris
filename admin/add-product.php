@@ -45,7 +45,6 @@ ob_start();
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-            <?php session_start(); ?>
             <?php include_once 'header.php'; ?>
             <!-- Left side column. contains the logo and sidebar -->
             <?php include_once 'left-menu.php'; ?>
@@ -134,13 +133,13 @@ ob_start();
                             }
 
                             //add product data in to product table
-                            $sqlProduct = sprintf("INSERT INTO product SET product_id = '%s',
+                            $sqlProduct = sprintf("INSERT INTO product SET 
                                 name = '%s',
                                 description = '%s',
                                 specification = '%s',
                                 qty = '%s',
                                 price ='%s',
-                                sprice = '%s', category_id = '%s'", 1, $flowername, $description, $specification, $qty, $price, $sprice, $category);
+                                sprice = '%s', category_id = '%s'", $flowername, $description, $specification, $qty, $price, $sprice, $category);
 
                             $resultProduct = mysqli_query($link, $sqlProduct);
 
@@ -235,7 +234,7 @@ ob_start();
                                             <label for="exampleInputPassword1" >Specification</label>
                                             <textarea class="textarea" name="specification" placeholder="Specification" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                         </div>
-
+                                        
                                         <?php
                                         $sqlCategories = sprintf("SELECT id, category FROM category");
                                         $resultCategory = mysqli_query($link, $sqlCategories);
