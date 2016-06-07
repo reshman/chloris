@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include 'logincheck.php';?>
+<?php include 'logincheck.php'; ?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -37,6 +37,96 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <style>
+
+            .hovereffect {
+                width:100%;
+                height:100%;
+                float:left;
+                overflow:hidden;
+                position:relative;
+                text-align:center;
+                cursor:default;
+            }
+
+            .hovereffect .overlay {
+                width:100%;
+                height:100%;
+                position:absolute;
+                overflow:hidden;
+                top:0;
+                left:0;
+                opacity:0;
+                background-color:rgba(0,0,0,0.5);
+                -webkit-transition:all .4s ease-in-out;
+                transition:all .4s ease-in-out
+            }
+
+            .hovereffect img {
+                display:block;
+                position:relative;
+                -webkit-transition:all .4s linear;
+                transition:all .4s linear;
+            }
+
+            .hovereffect h2 {
+                text-transform:uppercase;
+                color:#fff;
+                text-align:center;
+                position:relative;
+                font-size:17px;
+                background:rgba(0,0,0,0.6);
+                -webkit-transform:translatey(-100px);
+                -ms-transform:translatey(-100px);
+                transform:translatey(-100px);
+                -webkit-transition:all .2s ease-in-out;
+                transition:all .2s ease-in-out;
+                padding:10px;
+            }
+
+            .hovereffect a.info {
+                text-decoration:none;
+                display:inline-block;
+                text-transform:uppercase;
+                color:#fff;
+                border:1px solid #fff;
+                background-color:transparent;
+                opacity:0;
+                filter:alpha(opacity=0);
+                -webkit-transition:all .2s ease-in-out;
+                transition:all .2s ease-in-out;
+                margin:50px 0 0;
+                padding:7px 14px;
+            }
+
+            .hovereffect a.info:hover {
+                box-shadow:0 0 5px #fff;
+            }
+
+            .hovereffect:hover img {
+                -ms-transform:scale(1.2);
+                -webkit-transform:scale(1.2);
+                transform:scale(1.2);
+            }
+
+            .hovereffect:hover .overlay {
+                opacity:1;
+                filter:alpha(opacity=100);
+            }
+
+            .hovereffect:hover h2,.hovereffect:hover a.info {
+                opacity:1;
+                filter:alpha(opacity=100);
+                -ms-transform:translatey(0);
+                -webkit-transform:translatey(0);
+                transform:translatey(0);
+            }
+
+            .hovereffect:hover a.info {
+                -webkit-transition-delay:.2s;
+                transition-delay:.2s;
+            }
+        </style>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -102,12 +192,33 @@
                                             <tr><th>Category</th><td><?php echo $categoryRow['category'] ?></td></tr>
                                             <tr><th style="width: 100px">Actions</th>
                                                 <td>
-                                                    <a href="edit_product.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
+                                                    <a href="edit-product.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
                                                     <a href="javascript:void(0)" onclick="deleteConfirm('delete_product.php?id=<?= $productRow['id'] ?>')" class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></a>
                                                 </td>
                                             </tr>
 
                                         </table>
+                                        <?php
+                                        $image_query = sprintf("SELECT * FROM product_image WHERE product_id=%d ORDER BY id DESC LIMIT 4", $pid);
+                                        $image_result = mysqli_query($link, $image_query);
+                                        ?>     
+                                        <center  style="padding: 10px;"><strong>Uploaded Images of this product</strong></center>
+                                        <div class="img_av">                                           
+                                            <?php
+                                            while ($image_row = mysqli_fetch_assoc($image_result)) {
+                                                ?>
+                                                <div class=" col-lg-3 col-md-3 pull-right">
+                                                    <div class="hovereffect">
+                                                        <img class="img-responsive" src="product_images/<?= $image_row['image_name'] ?>" alt="Chloris Product Image">
+                                                        <div class="overlay">
+                                                            <a class="info" href="change_image.php?id=<?= $image_row['id'] ?>">CHANGE IMAGE</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
                                 <?php } ?>
                                 <!-- /.box-body -->
@@ -327,7 +438,7 @@
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
-            $.widget.bridge('uibutton', $.ui.button);
+                                                    $.widget.bridge('uibutton', $.ui.button);
         </script>
         <!-- Bootstrap 3.3.6 -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -359,17 +470,17 @@
         <!-- AdminLTE for demo purposes -->
         <script src="dist/js/demo.js"></script>
         <script>
-        function deleteConfirm(href) {
-            var ask = window.confirm("Are you sure you want to delete this item?");
-            if (ask) {
-                document.location.href = href;
-                }
-            }
-            $(document).ready(function () {
-            $('#dataTables-example').DataTable({
-                responsive: true
-                });
-            });
+                                                    function deleteConfirm(href) {
+                                                        var ask = window.confirm("Are you sure you want to delete this item?");
+                                                        if (ask) {
+                                                            document.location.href = href;
+                                                        }
+                                                    }
+                                                    $(document).ready(function () {
+                                                        $('#dataTables-example').DataTable({
+                                                            responsive: true
+                                                        });
+                                                    });
         </script>
     </body>
 </html>

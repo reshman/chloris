@@ -38,6 +38,94 @@
             table{
                 width: 50% !important;
             }
+
+            .hovereffect {
+                width:100%;
+                height:100%;
+                float:left;
+                overflow:hidden;
+                position:relative;
+                text-align:center;
+                cursor:default;
+            }
+
+            .hovereffect .overlay {
+                width:100%;
+                height:100%;
+                position:absolute;
+                overflow:hidden;
+                top:0;
+                left:0;
+                opacity:0;
+                background-color:rgba(0,0,0,0.5);
+                -webkit-transition:all .4s ease-in-out;
+                transition:all .4s ease-in-out
+            }
+
+            .hovereffect img {
+                display:block;
+                position:relative;
+                -webkit-transition:all .4s linear;
+                transition:all .4s linear;
+            }
+
+            .hovereffect h2 {
+                text-transform:uppercase;
+                color:#fff;
+                text-align:center;
+                position:relative;
+                font-size:17px;
+                background:rgba(0,0,0,0.6);
+                -webkit-transform:translatey(-100px);
+                -ms-transform:translatey(-100px);
+                transform:translatey(-100px);
+                -webkit-transition:all .2s ease-in-out;
+                transition:all .2s ease-in-out;
+                padding:10px;
+            }
+
+            .hovereffect a.info {
+                text-decoration:none;
+                display:inline-block;
+                text-transform:uppercase;
+                color:#fff;
+                border:1px solid #fff;
+                background-color:transparent;
+                opacity:0;
+                filter:alpha(opacity=0);
+                -webkit-transition:all .2s ease-in-out;
+                transition:all .2s ease-in-out;
+                margin:50px 0 0;
+                padding:7px 14px;
+            }
+
+            .hovereffect a.info:hover {
+                box-shadow:0 0 5px #fff;
+            }
+
+            .hovereffect:hover img {
+                -ms-transform:scale(1.2);
+                -webkit-transform:scale(1.2);
+                transform:scale(1.2);
+            }
+
+            .hovereffect:hover .overlay {
+                opacity:1;
+                filter:alpha(opacity=100);
+            }
+
+            .hovereffect:hover h2,.hovereffect:hover a.info {
+                opacity:1;
+                filter:alpha(opacity=100);
+                -ms-transform:translatey(0);
+                -webkit-transform:translatey(0);
+                transform:translatey(0);
+            }
+
+            .hovereffect:hover a.info {
+                -webkit-transition-delay:.2s;
+                transition-delay:.2s;
+            }
         </style>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -86,6 +174,14 @@
                     if (empty($flowername)) {
                         $error .= 'Flower name cant be empty!<br/>';
                     }
+                    
+                    if (empty($description)) {
+                        $error .= 'Description cant be empty!<br/>';
+                    }
+                    
+                    if (empty($specification)) {
+                        $error .= 'Specification cant be empty!<br/>';
+                    }
 
                     if (empty($qty)) {
                         $error .= 'Quantity cant be empty!<br/>';
@@ -106,6 +202,8 @@
                     }
 
                     if ($error == '') {
+                        
+                        
 
                         //PHP Upload Script
                         if (!is_dir("product_images")) {
@@ -131,14 +229,14 @@
                             }
 
                             //add product data in to product table
-                            $sqlProduct = sprintf("UPDATE product SET product_id = '%s',
+                            $sqlProduct = sprintf("UPDATE product SET
                                 name = '%s',
                                 description = '%s',
                                 qty = '%s',
                                 price ='%s',
                                 sprice = '%s',
                                 specification='%s',
-                                category_id = '%s' WHERE id=%d", 1, $flowername, $description, $qty, $price, $sprice, $category, $product_id);
+                                category_id = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice, $specification, $category, $product_id);
 
                             $resultProduct = mysqli_query($link, $sqlProduct);
 
@@ -150,14 +248,13 @@
                                     'type' => 'success'
                                 );
                             } else {
-
                                 $error .= "Error Product Edit<br/>";
                                 $_SESSION['error'] = array(
                                     'message' => $error,
                                     'type' => 'danger'
                                 );
 
-                                header('location:add-product.php');
+                                header('location:edit-product.php?id='.$product_id);
                                 die();
                             }
 
@@ -185,7 +282,34 @@
                                 }
                             }
                         } else {
-                            $error .="No Images selected/ Fewer than 4 images Selected for Uploading";
+
+                            //add product data in to product table
+                            $sqlProduct = sprintf("UPDATE product SET
+                                name = '%s',
+                                description = '%s',
+                                qty = '%s',
+                                price ='%s',
+                                sprice = '%s',
+                                specification='%s',
+                                category_id = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice,$specification, $category,$product_id);
+
+                            $resultProduct = mysqli_query($link, $sqlProduct);
+
+                            if ($resultProduct) {
+                                $_SESSION['error'] = array(
+                                    'message' => 'Product Sucessfully Edited!',
+                                    'type' => 'success'
+                                );
+                            } else {
+                                $error .= "Error Product Edit<br/>";
+                                $_SESSION['error'] = array(
+                                    'message' => $error,
+                                    'type' => 'danger'
+                                );
+
+                                header('location:edit-product.php?id='.$product_id);
+                                die();
+                            }
                         }
                     }
 
@@ -195,7 +319,7 @@
                             'type' => 'danger'
                         );
 
-                        header('location:edit-product.php');
+                        header('location:edit-product.php?id='.$product_id);
                         exit();
                     }
 
@@ -242,7 +366,7 @@
 
                                         <div class="form-group">
                                             <label for="exampleInputPassword1" >Specification</label>
-                                            <textarea class="textarea" name="specfication" placeholder="Specification" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                            <textarea class="textarea" name="specification" placeholder="Specification" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
                                                 <?= $product_data['specification'] ?>
                                             </textarea>
                                         </div>
@@ -296,6 +420,27 @@
                                             </tbody>
                                         </table>
 
+                                        <?php
+                                        $image_query = sprintf("SELECT * FROM product_image WHERE product_id=%d ORDER BY id DESC LIMIT 4", $product_id);
+                                        $image_result = mysqli_query($link, $image_query);
+                                        ?>                                        
+                                        <div class="img_av">
+                                            <?php
+                                            while ($image_row = mysqli_fetch_assoc($image_result)) {
+                                                ?>
+                                                <div class=" col-lg-3 col-md-3">
+                                                    <div class="hovereffect">
+                                                        <img class="img-responsive" src="product_images/<?= $image_row['image_name'] ?>" alt="Chloris Product Image">
+                                                        <div class="overlay">
+                                                            <a class="info" href="change_image.php?id=<?= $image_row['id'] ?>">CHANGE IMAGE</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+
                                     </div>
                                     <!-- /.box-body -->
 
@@ -336,10 +481,6 @@
 
         <!-- AdminLTE for demo purposes -->
         <!--<script src="dist/js/demo.js"></script>-->
-        <?php
-        $image_query = sprintf("SELECT * FROM product_image WHERE product_id=%d",$product_id);
-        $image_result = mysqli_query($link, $image_query);
-        ?>
         <script>
             $(function () {
                 $(".select2").select2();
@@ -349,26 +490,18 @@
                     var txt = "";
                     if ('files' in x) {
                         if (x.files.length == 0) {
-                            document.getElementById("change_col").innerHTML = 'Options';
-                            txt = "<tr><td colspan='3'>These are the already Uploaded images. New upload replaces all these files.</td></tr>";
-<?php
-$i = 1;
-while ($image_row = mysqli_fetch_assoc($image_result)) {
-    ?>
-                            txt += "<tr><td><?= $i ?></td><td><img src='product_images/<?= $image_row['image_name'] ?>' style='width:300px;'></td>"+
-                                    "<td></td></tr>";
-    <?php
-    $i++;
-}
-?>
+                            txt = "<tr><td colspan='3'>These are the already Uploaded images. New upload replaces all these Images.</td></tr>";
+                            $('.img_av').show();
                         } else if (x.files.length < 4) {
                             txt = "<tr><td colspan='3'>Selected fewer than 4 Images. Four Images are needed.</td></tr>";
+                            $('.img_av').show();
                             x.value = '';
                         } else if (x.files.length > 4) {
                             txt = "<tr><td colspan='3'>Selected more than 4 Images. Only four images are allowed</td></tr>";
+                            $('.img_av').show();
                             x.value = '';
                         } else {
-                            document.getElementById("change_col").innerHTML = 'Size';
+                            $('.img_av').hide();
                             for (var i = 0; i < x.files.length; i++) {
                                 var file = x.files[i];
                                 if ('name' in file) {
@@ -382,9 +515,11 @@ while ($image_row = mysqli_fetch_assoc($image_result)) {
                     } else {
                         if (x.value == "") {
                             txt += "Select one or more files.";
+                            $('.img_av').hide();
                         } else {
                             txt += "The files property is not supported by your browser!";
                             txt += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+                            $('.img_av').hide();
                         }
                     }
                     document.getElementById("selected_details").innerHTML = txt;

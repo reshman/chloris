@@ -133,7 +133,7 @@ ob_start();
                             }
 
                             //add product data in to product table
-                            $sqlProduct = sprintf("INSERT INTO product SET 
+                            $sqlProduct = sprintf("INSERT INTO product SET
                                 name = '%s',
                                 description = '%s',
                                 specification = '%s',

@@ -117,7 +117,7 @@
                                                     <td><?php echo $productRow['qty'] ?></td>
                                                     <td><a href="view_product.php?id=<?php echo $productRow['id'] ?>">view more</a></td>
                                                     <td>
-                                                        <a href="edit_product.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
+                                                        <a href="edit-product.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>
                                                         <a href="javascript:void(0)" onclick="deleteConfirm('delete_product.php?id=<?= $productRow['id'] ?>')" class="btn btn-default btn-danger"> <i class="fa fa-remove"></i></a>
                                                     </td>
                                                 </tr>
