@@ -1,6 +1,4 @@
-<?php
-include 'logincheck.php';
-ob_start(); ?>
+<?php ob_start(); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,6 +64,10 @@ ob_start(); ?>
                 <?php
                 require_once 'functions.php';
                 require_once 'db.php';
+                
+                if(isset($_GET['id'])){
+                    $product_id = sanatizeInput($_GET['id'], 'int');
+                }
 
                 if (isset($_POST['submit'])) {
 
@@ -194,6 +196,7 @@ ob_start(); ?>
                     exit();
                 }
                 ?>
+
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
