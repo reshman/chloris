@@ -64,8 +64,8 @@
                 <?php
                 require_once 'functions.php';
                 require_once 'db.php';
-                
-                if(isset($_GET['id'])){
+
+                if (isset($_GET['id'])) {
                     $product_id = sanatizeInput($_GET['id'], 'int');
                 }
 
@@ -76,7 +76,8 @@
 
 
                     $flowername = sanatizeInput($_POST['flowername'], 'string');
-                    $description = sanatizeInput($_POST['description'], 'string');
+                    $description = trim($_POST['description']);
+                    $specification = trim($_POST['specification']);
                     $qty = sanatizeInput($_POST['qty'], 'int');
                     $price = sanatizeInput($_POST['price'], 'int');
                     $sprice = sanatizeInput($_POST['sprice'], 'int');
@@ -130,25 +131,27 @@
                             }
 
                             //add product data in to product table
-                            $sqlProduct = sprintf("INSERT INTO product SET product_id = '%s',
+                            $sqlProduct = sprintf("UPDATE product SET product_id = '%s',
                                 name = '%s',
                                 description = '%s',
                                 qty = '%s',
                                 price ='%s',
-                                sprice = '%s', category_id = '%s'", 1, $flowername, $description, $qty, $price, $sprice, $category);
+                                sprice = '%s',
+                                specification='%s',
+                                category_id = '%s' WHERE id=%d", 1, $flowername, $description, $qty, $price, $sprice, $category, $product_id);
 
                             $resultProduct = mysqli_query($link, $sqlProduct);
 
-                            $id = mysqli_insert_id($link);
+                            $id = $product_id;
 
                             if ($resultProduct) {
                                 $_SESSION['error'] = array(
-                                    'message' => 'Product Sucessfully Added!',
+                                    'message' => 'Product Sucessfully Edited!',
                                     'type' => 'success'
                                 );
                             } else {
 
-                                $error .= "Error Product add<br/>";
+                                $error .= "Error Product Edit<br/>";
                                 $_SESSION['error'] = array(
                                     'message' => $error,
                                     'type' => 'danger'
@@ -165,11 +168,15 @@
                                     $type = end($sepext);       // gets extension
                                     $product_image_name = "chloris_product_" . $id . "_image_" . $i . "." . $type;
                                     $uploadpath = 'product_images/' . $product_image_name;
+                                    chmod($uploadpath, 0644);
+                                    unlink($uploadpath);
+                                    $img_q = sprintf("DELETE FROM product_image WHERE image_name='%s'", $product_image_name);
+                                    mysqli_query($link, $img_q);
                                     if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'][$i], $uploadpath)) {
-                                        $query = sprintf("INSERT INTO product_image SET image_name='%s',product_id=%d",$product_image_name,$id);
+                                        $query = sprintf("INSERT INTO product_image SET image_name='%s',product_id=%d", $product_image_name, $id);
                                         $result = mysqli_query($link, $query);
-                                        if(!$result){
-                                            $error .="Failed to add image name to Database.".  mysqli_error($link);
+                                        if (!$result) {
+                                            $error .="Failed to add image name to Database." . mysqli_error($link);
                                         }
                                     } else {
                                         //header('Location: add_song.php?status=2');
@@ -188,7 +195,7 @@
                             'type' => 'danger'
                         );
 
-                        header('location:add-product.php');
+                        header('location:edit-product.php');
                         exit();
                     }
 
@@ -213,18 +220,31 @@
                                     echo flashMessage($_SESSION['error']['message'], $_SESSION['error']['type']);
                                     unset($_SESSION['error']);
                                 endif;
+
+                                $product_data_query = sprintf("SELECT * FROM product WHERE id=%d", $product_id);
+                                $product_data_result = mysqli_query($link, $product_data_query);
+                                $product_data = mysqli_fetch_assoc($product_data_result);
                                 ?>
 
                                 <form role="form" method="POST" enctype="multipart/form-data">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Flower Name</label>
-                                            <input type="text" name="flowername" id="flowername" class="form-control" id="exampleInputEmail1" placeholder="Flower Name">
+                                            <input type="text" name="flowername" id="flowername" class="form-control" placeholder="Flower Name" value="<?= $product_data['name'] ?>">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputPassword1" >Description</label>
-                                            <textarea class="textarea" name="description" placeholder="Description" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            <textarea class="textarea" name="description" placeholder="Description" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                                <?= $product_data['description'] ?>
+                                            </textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1" >Specification</label>
+                                            <textarea class="textarea" name="specfication" placeholder="Specification" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                                <?= $product_data['specification'] ?>
+                                            </textarea>
                                         </div>
 
                                         <?php
@@ -236,24 +256,24 @@
                                             <label>Category</label>
                                             <select class="form-control select2" name="category">
                                                 <?php while ($rowCategories = mysqli_fetch_assoc($resultCategory)): ?>
-                                                    <option value="<?php echo $rowCategories['id'] ?>"><?php echo $rowCategories['category'] ?></option>
+                                                    <option value="<?php echo $rowCategories['id'] ?>" <?php if ($product_data['category_id'] == $rowCategories['id']) { ?> selected <?php } ?>><?php echo $rowCategories['category'] ?></option>
                                                 <?php endwhile; ?>
                                             </select>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Quantity</label>
-                                            <input type="text" name="qty" id="qty" class="form-control" id="exampleInputEmail1" value="1" placeholder="Quantity">
+                                            <input type="text" name="qty" id="qty" class="form-control" value="<?= $product_data['qty'] ?>" placeholder="Quantity">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Price</label>
-                                            <input type="text" name="price" id="price" class="form-control" id="exampleInputEmail1" placeholder="Price">
+                                            <input type="text" name="price" id="price" class="form-control" placeholder="Price" value="<?= $product_data['price'] ?>">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Selling Price</label>
-                                            <input type="text" name="sprice" id="sprice" class="form-control" id="exampleInputEmail1" placeholder="Price">
+                                            <input type="text" name="sprice" id="sprice" class="form-control" placeholder="Price" value="<?= $product_data['sprice'] ?>">
                                         </div>
 
                                         <div class="form-group">
@@ -268,7 +288,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Name</th>
-                                                    <th>Size</th>
+                                                    <th id="change_col">Option</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="selected_details">
@@ -291,71 +311,90 @@
                 </section>
                 <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
-            <?php include_once 'footer.php' ?>
+        </div>
+        <!-- /.content-wrapper -->
+        <?php include_once 'footer.php' ?>
 
-            <!-- jQuery 2.2.0 -->
-            <script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
-            <!-- jQuery UI 1.11.4 -->
-            <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <!-- jQuery 2.2.0 -->
+        <script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
-            <!-- Bootstrap 3.3.6 -->
-            <script src="bootstrap/js/bootstrap.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
 
-            <!-- Select2 -->
-            <script src="plugins/select2/select2.full.min.js"></script>
-
-
-            <!-- Bootstrap WYSIHTML5 -->
-            <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <!-- Select2 -->
+        <script src="plugins/select2/select2.full.min.js"></script>
 
 
-            <!-- AdminLTE App -->
-            <script src="dist/js/app.min.js"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
-            <!-- AdminLTE for demo purposes -->
-            <!--<script src="dist/js/demo.js"></script>-->
 
-            <script>
-                $(function () {
-                    $(".select2").select2();
-                    $(".textarea").wysihtml5();
-                    function fileToUploadFunction() {
-                        var x = document.getElementById("fileToUpload");
-                        var txt = "";
-                        if ('files' in x) {
-                            if (x.files.length == 0) {
-                                txt = "<tr><td colspan='3'>Select one or more Images.</td></tr>";
-                            } else if (x.files.length > 4) {
-                                txt = "<tr><td colspan='3'>Selected more than 4 Images. Maximum four images are allowed.</td></tr>";
-                                x.value = '';
-                            } else {
-                                for (var i = 0; i < x.files.length; i++) {
-                                    var file = x.files[i];
-                                    if ('name' in file) {
-                                        txt += "<tr><td>" + (i + 1) + ".</td><td>" + file.name + "</td>";
-                                    }
-                                    if ('size' in file) {
-                                        txt += "<td>" + file.size + " Bytes </td></tr>";
-                                    }
+        <!-- AdminLTE App -->
+        <script src="dist/js/app.min.js"></script>
+
+        <!-- AdminLTE for demo purposes -->
+        <!--<script src="dist/js/demo.js"></script>-->
+        <?php
+        $image_query = sprintf("SELECT * FROM product_image WHERE product_id=%d",$product_id);
+        $image_result = mysqli_query($link, $image_query);
+        ?>
+        <script>
+            $(function () {
+                $(".select2").select2();
+                $(".textarea").wysihtml5();
+                function fileToUploadFunction() {
+                    var x = document.getElementById("fileToUpload");
+                    var txt = "";
+                    if ('files' in x) {
+                        if (x.files.length == 0) {
+                            document.getElementById("change_col").innerHTML = 'Options';
+                            txt = "<tr><td colspan='3'>These are the already Uploaded images. New upload replaces all these files.</td></tr>";
+<?php
+$i = 1;
+while ($image_row = mysqli_fetch_assoc($image_result)) {
+    ?>
+                            txt += "<tr><td><?= $i ?></td><td><img src='product_images/<?= $image_row['image_name'] ?>' style='width:300px;'></td>"+
+                                    "<td></td></tr>";
+    <?php
+    $i++;
+}
+?>
+                        } else if (x.files.length < 4) {
+                            txt = "<tr><td colspan='3'>Selected fewer than 4 Images. Four Images are needed.</td></tr>";
+                            x.value = '';
+                        } else if (x.files.length > 4) {
+                            txt = "<tr><td colspan='3'>Selected more than 4 Images. Only four images are allowed</td></tr>";
+                            x.value = '';
+                        } else {
+                            document.getElementById("change_col").innerHTML = 'Size';
+                            for (var i = 0; i < x.files.length; i++) {
+                                var file = x.files[i];
+                                if ('name' in file) {
+                                    txt += "<tr><td>" + (i + 1) + ".</td><td>" + file.name + "</td>";
+                                }
+                                if ('size' in file) {
+                                    txt += "<td>" + file.size + " Bytes </td></tr>";
                                 }
                             }
-                        } else {
-                            if (x.value == "") {
-                                txt += "Select one or more files.";
-                            } else {
-                                txt += "The files property is not supported by your browser!";
-                                txt += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
-                            }
                         }
-                        document.getElementById("selected_details").innerHTML = txt;
+                    } else {
+                        if (x.value == "") {
+                            txt += "Select one or more files.";
+                        } else {
+                            txt += "The files property is not supported by your browser!";
+                            txt += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+                        }
                     }
+                    document.getElementById("selected_details").innerHTML = txt;
+                }
 
+                fileToUploadFunction();
+                $('#fileToUpload').change(function () {
                     fileToUploadFunction();
-                    $('#fileToUpload').change(function () {
-                        fileToUploadFunction();
-                    });
                 });
-            </script>
+            });
+        </script>
     </body>
 </html>
