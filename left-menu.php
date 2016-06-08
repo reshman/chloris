@@ -11,7 +11,7 @@
                     ?>
                     <div class="tab1">
                         <ul class="place">								
-                            <li class="sort"><a href="product.php?category=<?php echo $rowCategory['id']; ?>"><?php echo $rowCategory['category']; ?></a></li>
+                            <li class="active"><a href="product.php?category=<?php echo $rowCategory['id']; ?>"><?php echo $rowCategory['category']; ?></a></li>
                             <div class="clearfix"> </div>
                         </ul>
                     </div>

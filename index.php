@@ -105,11 +105,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="col-md-4 bride-grid">
             <div class="content-grid l-grids">
                 <figure class="effect-bubba">
-                    <img src="images/b1.jpg" alt=""/>
+                    <a href="product.php?category=1"><img src="images/b1.jpg" alt=""/>
                     <figcaption>
                         <h4>Nullam molestie </h4>
                         <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>																
-                    </figcaption>			
+                    </figcaption></a>			
                 </figure>
                 <div class="clearfix"></div>
                 <h3>Wedding Dresses</h3>

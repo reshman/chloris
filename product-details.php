@@ -13,12 +13,6 @@ if ($_GET['id']) {
         $price = $row['price'];
         $sprice = $row['sprice'];
         $specification = $row['specification'];
-
-//			$category=$row['category'];
-//			$image1= $row['image1'];
-//			$image2=$row['image2'];
-//			$image3=$row['image3'];
-//			$image4=$row['image4'];
     }
 }
 ?>
@@ -89,16 +83,6 @@ if ($_GET['id']) {
                                     }
                                 }
                                 ?>
-
-<!--            <li data-thumb="<?php //echo $image2; ?>">
-    <img src="<?php //echo $image2; ?>" />
-</li>
-<li data-thumb="<?php //echo $image3; ?>">
-    <img src="<?php// echo $image3; ?>" />
-</li>
-<li data-thumb="<?php// echo $image4; ?>">
-    <img src="<?php// echo $image4; ?>" />
-</li>-->
                             </ul>
                         </div>
 
@@ -129,8 +113,8 @@ if ($_GET['id']) {
                             <div class="prdt-cost">
                                 <ul>
                                     <li>Stock: <?php echo $stock ?></li>
-                                    <li>MRP: SGD <del><?php echo $price ?></del></li>
-                                    <li class="active">Sellling Price: SGD <span class="active"><?php echo $sprice ?></span></li>
+                                    <li>MRP: <del><?php echo $price ?></del></li>
+                                    <li class="active">Sellling Price: <span class="active"><?php echo $sprice ?></span></li>
 
                                     <?php
                                     //Set useful variables for paypal form
