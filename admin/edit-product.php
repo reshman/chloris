@@ -162,7 +162,7 @@
                     $_SESSION['error'] = array();
                     $error = "";
 
-
+                    $product_id = sanatizeInput($_POST['id'], 'int');
                     $flowername = sanatizeInput($_POST['flowername'], 'string');
                     $description = trim($_POST['description']);
                     $specification = trim($_POST['specification']);
@@ -363,7 +363,8 @@
                                 $product_data = mysqli_fetch_assoc($product_data_result);
                                 ?>
 
-                                <form role="form" method="POST" enctype="multipart/form-data">
+                                <form role="form" method="POST" enctype="multipart/form-data" id="editForm" action="edit-product.php">
+                                    <input id="id" name="id" value="<?= $product_id ?>" hidden >
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Flower Name</label>
@@ -419,11 +420,7 @@
                                                 <span class="btn btn-default btn-file"><span>Choose Images</span><input type="file" multiple id="fileToUpload" name="fileToUpload[]"/></span>
                                             </div>
                                         </div>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-green progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                                <span class="sr-only"></span>
-                                            </div>
-                                        </div>
+                                        
                                         <table class="table table-striped table-hover">
                                             <thead>
                                                 <tr>
@@ -528,33 +525,7 @@
                 $('#fileToUpload').change(function () {
                     fileToUploadFunction();
                 });
-
-                $('.progress').hide();
-                $(document).ready(function () {
-                    $('#addForm').submit(function (e) {
-                        if ($('#fileToUpload').val()) {
-                            e.preventDefault();
-                            $('.progress').show();
-                            $(this).ajaxSubmit({
-                                target: '',
-                                beforeSubmit: function () {
-                                    $(".progress-bar").width('0%');
-                                },
-                                uploadProgress: function (event, position, total, percentComplete) {
-                                    $(".progress-bar").width(percentComplete + '%');
-                                    $("#target").html('<div id="progress-status">' + percentComplete + ' %</div>')
-                                },
-                                success: function () {
-                                    $('.progress').fadeOut(2000, function () {
-                                    });
-                                },
-                                resetForm: true
-                            });
-                            return false;
-                        }
-                    });
-                });
-
+                
             });
         </script>
     </body>

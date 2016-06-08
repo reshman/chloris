@@ -209,7 +209,7 @@
 
                                         </table>
                                         <?php
-                                        $image_query = sprintf("SELECT * FROM product_image WHERE product_id=%d ORDER BY id DESC LIMIT 4", $pid);
+                                        $image_query = sprintf("SELECT * FROM product_image WHERE product_id=%d ORDER BY image_name LIMIT 4", $pid);
                                         $image_result = mysqli_query($link, $image_query);
                                         ?>     
                                         <center  style="padding: 10px;"><strong>Uploaded Images of this product</strong></center>

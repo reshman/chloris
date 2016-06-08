@@ -218,7 +218,7 @@ ob_start();
                                 endif;
                                 ?>
 
-                                <form role="form" method="POST" enctype="multipart/form-data">
+                                <form role="form" method="POST" enctype="multipart/form-data" id="addForm">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Flower Name</label>
@@ -271,12 +271,7 @@ ob_start();
                                                 <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" multiple id="fileToUpload" name="fileToUpload[]"/></span>
                                             </div>
                                         </div>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-green progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                                <span class="sr-only"></span>
-                                            </div>
-                                        </div>
-
+                                        
                                         <table class="table table-striped table-hover">
                                             <thead>
                                                 <tr>
@@ -375,32 +370,6 @@ ob_start();
                 fileToUploadFunction();
                 $('#fileToUpload').change(function () {
                     fileToUploadFunction();
-                });
-
-                $('.progress').hide();
-                $(document).ready(function () {
-                    $('#addForm').submit(function (e) {
-                        if ($('#fileToUpload').val()) {
-                            e.preventDefault();
-                            $('.progress').show();
-                            $(this).ajaxSubmit({
-                                target: '',
-                                beforeSubmit: function () {
-                                    $(".progress-bar").width('0%');
-                                },
-                                uploadProgress: function (event, position, total, percentComplete) {
-                                    $(".progress-bar").width(percentComplete + '%');
-                                    $("#target").html('<div id="progress-status">' + percentComplete + ' %</div>')
-                                },
-                                success: function () {
-                                    $('.progress').fadeOut(2000, function () {
-                                    });
-                                },
-                                resetForm: true
-                            });
-                            return false;
-                        }
-                    });
                 });
                 
             });
