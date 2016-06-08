@@ -174,11 +174,11 @@
                     if (empty($flowername)) {
                         $error .= 'Flower name cant be empty!<br/>';
                     }
-                    
+
                     if (empty($description)) {
                         $error .= 'Description cant be empty!<br/>';
                     }
-                    
+
                     if (empty($specification)) {
                         $error .= 'Specification cant be empty!<br/>';
                     }
@@ -202,8 +202,8 @@
                     }
 
                     if ($error == '') {
-                        
-                        
+
+
 
                         //PHP Upload Script
                         if (!is_dir("product_images")) {
@@ -254,7 +254,7 @@
                                     'type' => 'danger'
                                 );
 
-                                header('location:edit-product.php?id='.$product_id);
+                                header('location:edit-product.php?id=' . $product_id);
                                 die();
                             }
 
@@ -263,12 +263,26 @@
                                 for ($i = 0; $i < $no_of_images; $i++) {
                                     $sepext = explode('.', strtolower($_FILES['fileToUpload']['name'][$i]));
                                     $type = end($sepext);       // gets extension
+                                    
+                                    //Removing Already existing product images
+                                    $i1 = "product_images/chloris_product_" . $id . "_image_" . $i . ".jpg";
+                                    chmod($i1, 0644);
+                                    unlink($i1);
+                                    $i1 = "chloris_product_" . $id . "_image_" . $i . ".jpg";
+                                    $img_q = sprintf("DELETE FROM product_image WHERE image_name='%s'", $i1);
+                                    mysqli_query($link, $img_q);
+                                    $i2 = "product_images/chloris_product_" . $id . "_image_" . $i . ".jpeg";
+                                    chmod($i2, 0644);
+                                    unlink($i2);
+                                    $i2 = "chloris_product_" . $id . "_image_" . $i . ".jpeg";
+                                    $img_q = sprintf("DELETE FROM product_image WHERE image_name='%s'", $i2);
+                                    mysqli_query($link, $img_q);
                                     $product_image_name = "chloris_product_" . $id . "_image_" . $i . "." . $type;
                                     $uploadpath = 'product_images/' . $product_image_name;
                                     chmod($uploadpath, 0644);
                                     unlink($uploadpath);
-                                    $img_q = sprintf("DELETE FROM product_image WHERE image_name='%s'", $product_image_name);
-                                    mysqli_query($link, $img_q);
+
+                                    //Uploading New Image
                                     if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'][$i], $uploadpath)) {
                                         $query = sprintf("INSERT INTO product_image SET image_name='%s',product_id=%d", $product_image_name, $id);
                                         $result = mysqli_query($link, $query);
@@ -291,7 +305,7 @@
                                 price ='%s',
                                 sprice = '%s',
                                 specification='%s',
-                                category_id = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice,$specification, $category,$product_id);
+                                category_id = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice, $specification, $category, $product_id);
 
                             $resultProduct = mysqli_query($link, $sqlProduct);
 
@@ -307,7 +321,7 @@
                                     'type' => 'danger'
                                 );
 
-                                header('location:edit-product.php?id='.$product_id);
+                                header('location:edit-product.php?id=' . $product_id);
                                 die();
                             }
                         }
@@ -319,7 +333,7 @@
                             'type' => 'danger'
                         );
 
-                        header('location:edit-product.php?id='.$product_id);
+                        header('location:edit-product.php?id=' . $product_id);
                         exit();
                     }
 
@@ -403,7 +417,7 @@
                                         <div class="form-group">
                                             <label>Select Images</label>
                                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" multiple id="fileToUpload" name="fileToUpload[]"/></span>
+                                                <span class="btn btn-default btn-file"><span>Choose Images</span><input type="file" multiple id="fileToUpload" name="fileToUpload[]"/></span>
                                             </div>
                                         </div>
 
@@ -412,34 +426,13 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Name</th>
-                                                    <th id="change_col">Option</th>
+                                                    <th id="change_col">Size</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="selected_details">
 
                                             </tbody>
                                         </table>
-
-                                        <?php
-                                        $image_query = sprintf("SELECT * FROM product_image WHERE product_id=%d ORDER BY id DESC LIMIT 4", $product_id);
-                                        $image_result = mysqli_query($link, $image_query);
-                                        ?>                                        
-                                        <div class="img_av">
-                                            <?php
-                                            while ($image_row = mysqli_fetch_assoc($image_result)) {
-                                                ?>
-                                                <div class=" col-lg-3 col-md-3">
-                                                    <div class="hovereffect">
-                                                        <img class="img-responsive" src="product_images/<?= $image_row['image_name'] ?>" alt="Chloris Product Image">
-                                                        <div class="overlay">
-                                                            <a class="info" href="change_image.php?id=<?= $image_row['id'] ?>">CHANGE IMAGE</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php
-                                            }
-                                            ?>
-                                        </div>
 
                                     </div>
                                     <!-- /.box-body -->
@@ -490,7 +483,7 @@
                     var txt = "";
                     if ('files' in x) {
                         if (x.files.length == 0) {
-                            txt = "<tr><td colspan='3'>These are the already Uploaded images. New upload replaces all these Images.</td></tr>";
+                            txt = "<tr><td colspan='3'>New upload replaces all the Existing Images.</td></tr>";
                             $('.img_av').show();
                         } else if (x.files.length < 4) {
                             txt = "<tr><td colspan='3'>Selected fewer than 4 Images. Four Images are needed.</td></tr>";
