@@ -27,6 +27,6 @@
     <div class="container">
         <p>&nbsp;</p>
         <center>
-            <p>Copyright © 2015 FLORAL DESIGNS All rights reserved | Design by <a href="http://www.lionmarks.in">LIONMARKS</a></p></center>
+            <p>Copyright © 2016 FLORAL DESIGNS All rights reserved | Design by <a href="https://www.imrokraft.com" target="_blank">IMROKRAFT SOLUTIONS</a></p></center>
     </div>
 </div>

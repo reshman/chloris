@@ -40,20 +40,30 @@ include 'header.php';
             if (isset($_GET['category'])) {
                 $category_id = $_GET['category'];
             } else {
-                $category_id = 1;
+                $sqlCategory = sprintf("SELECT id FROM category WHERE category='%s'",'BOUQUETS');
+                $resultCategory = mysqli_query($link, $sqlCategory);
+                $rowCategory = mysqli_fetch_assoc($resultCategory);
+                $category_id = $rowCategory['id'];
             }
 
+            // Select products
+//          $sqlProduct = sprintf("SELECT p.id, p.price, pi.image_name from product p LEFT JOIN product_image pi ON p.id = pi.product_id WHERE category_id=%d", $category_id);
             $sqlProduct = sprintf("SELECT * from product WHERE category_id=%d", $category_id);
             $resultProduct = mysqli_query($link, $sqlProduct);
+            
             if (mysqli_num_rows($resultProduct) > 0) {
                 $i = 1;
                 while ($productRow = mysqli_fetch_assoc($resultProduct)) {
+                    //Select images of product
+                    $sql = sprintf("SELECT * from product_image WHERE product_id=%d LIMIT 1", $productRow['id']);
+                    $result = mysqli_query($link, $sql);
+                    $flowerRow = mysqli_fetch_assoc($result);
                     ?>
-                    <a href="single.php?id=<?php echo $productRow['id']; ?>">
+                    <a href="product-details.php?id=<?php echo $productRow['id']; ?>">
                         <div class="product-grid love-grid">
                             <div class="more-product"><span> </span></div>						
                             <div class="product-img b-link-stripe b-animate-go  thickbox">
-                                <img src="<?php echo $productRow['image1']; ?>" class="img-responsive" alt=""/>
+                                <img src="admin/product_images/<?php echo $productRow['image_name']; ?>" class="img-responsive" alt=""/>
                                 <div class="b-wrapper">
                                     <h4 class="b-animate b-from-left  b-delay03">							
                                         <button class="btns"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Quick View</button>
@@ -64,7 +74,7 @@ include 'header.php';
                                 <div class="product-info-cust prt_name">
                                     <h4>Flower #<?php echo $i; ?></h4>
                                     <p>ID: <?php echo $productRow['id']; ?></p>
-                                    <p class="item_price">Item Price: SGD <?php echo $productRow['price']; ?></p>								
+                                    <p class="item_price">Item Price: <?php echo $productRow['price']; ?></p>								
                                     <!--<input type="text" class="item_quantity" value="1" />-->
                                     <input type="button" class="item_add items" value="BUY">
                                 </div>													
