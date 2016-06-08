@@ -2,28 +2,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Mirrored from www.rxar.in/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 01 Jun 2016 10:26:50 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-
-<title>Chloris Designs | Contact</title>
-<script type='text/javascript'>window.mod_pagespeed_start = Number(new Date());</script><link href="css/A.bootstrap.css%2bstyle.css%2bmemenu.css%2cMcc.IbVc2WLnW1.css.pagespeed.cf.uQXx-_4OtF.css" rel="stylesheet" type="text/css" media="all"/>
+<title>Chloris Designs | Contact </title>
+<link href='https://fonts.googleapis.com/css?family=Fanwood+Text' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js.pagespeed.jm.TiC1blcYSb.js"></script>
+<script src="js/jquery.min.js"></script>
 <!-- Custom Theme files -->
 <!--theme-style-->
-	
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Wedding Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-<script type="application/x-javascript">addEventListener("load",function(){setTimeout(hideURLbar,0);},false);function hideURLbar(){window.scrollTo(0,1);}</script>
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- start menu -->
-<script src="js/simpleCart.min.js%2cMjm.3Ci-8PtlmZ.js%2bmemenu.js.pagespeed.jc.sAXYQHQVTS.js"></script><script>eval(mod_pagespeed_apDcDB_XW4);</script>
+<script src="js/simpleCart.min.js"> </script>
 <!-- start menu -->
-<link rel="stylesheet" href="css/new.css">
-<script>eval(mod_pagespeed_KGFIItuhLT);</script>
+<link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="js/memenu.js"></script>
 <script>$(document).ready(function(){$(".memenu").memenu();});</script>	
+<link rel="stylesheet" href="css/new.css">
 <!-- /start menu -->
 </head>
 <body> 
@@ -37,6 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  <li><a href="index.php">Home</a></li>
 		  <li class="active">Contact</li>
 		 </ol>
+      
 			<!---start-contact---->
 			<h3>Contact Us</h3>
 		  <div class="section group">				
@@ -78,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						    	<span><textarea name="userMsg"> </textarea></span>
 						    </div>
 						   <div>
-						   		<span><input type="submit" class="mybutton" value="Submit"></span>
+						   	<span><input type="submit" class="mybutton" value="Submit"></span>
 						  </div>
 					    </form>
 

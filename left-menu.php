@@ -1,3 +1,10 @@
+<?php
+if(isset($_GET['category'])){
+    $catId = $_GET['category'];
+}else{
+    $catId = 1;
+}
+?>
 <div class="rsidebar span_1_of_left">
     <section  class="sky-form">
         <div class="product_right">
@@ -11,7 +18,7 @@
                     ?>
                     <div class="tab1">
                         <ul class="place">								
-                            <li class="active"><a href="product.php?category=<?php echo $rowCategory['id']; ?>"><?php echo $rowCategory['category']; ?></a></li>
+                            <li<?php if($rowCategory['id']==$catId){ ?> class="category active" <?php } ?>><a href="product.php?category=<?php echo $rowCategory['id']; ?>"><?php echo $rowCategory['category']; ?></a></li>
                             <div class="clearfix"> </div>
                         </ul>
                     </div>
