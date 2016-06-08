@@ -330,6 +330,8 @@
                                                             $('#uploadmodal').modal();
                                                             $('#uploadmodal #id').val(id);
                                                         }
+                                                        
+                                                        $('.progress').hide();
 
                                                         $('#uploadmodal #fileToUpload').change(function () {
                                                             var val = $('#uploadmodal #fileToUpload').val();

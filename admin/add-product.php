@@ -234,7 +234,7 @@ ob_start();
                                             <label for="exampleInputPassword1" >Specification</label>
                                             <textarea class="textarea" name="specification" placeholder="Specification" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                         </div>
-                                        
+
                                         <?php
                                         $sqlCategories = sprintf("SELECT id, category FROM category");
                                         $resultCategory = mysqli_query($link, $sqlCategories);
@@ -269,6 +269,11 @@ ob_start();
                                             <label>Select Images</label>
                                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                                 <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" multiple id="fileToUpload" name="fileToUpload[]"/></span>
+                                            </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-green progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only"></span>
                                             </div>
                                         </div>
 
@@ -311,7 +316,10 @@ ob_start();
 
         <!-- Bootstrap 3.3.6 -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
-
+        
+        <!-- jquery form -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+        
         <!-- Select2 -->
         <script src="plugins/select2/select2.full.min.js"></script>
 
@@ -368,6 +376,33 @@ ob_start();
                 $('#fileToUpload').change(function () {
                     fileToUploadFunction();
                 });
+
+                $('.progress').hide();
+                $(document).ready(function () {
+                    $('#addForm').submit(function (e) {
+                        if ($('#fileToUpload').val()) {
+                            e.preventDefault();
+                            $('.progress').show();
+                            $(this).ajaxSubmit({
+                                target: '',
+                                beforeSubmit: function () {
+                                    $(".progress-bar").width('0%');
+                                },
+                                uploadProgress: function (event, position, total, percentComplete) {
+                                    $(".progress-bar").width(percentComplete + '%');
+                                    $("#target").html('<div id="progress-status">' + percentComplete + ' %</div>')
+                                },
+                                success: function () {
+                                    $('.progress').fadeOut(2000, function () {
+                                    });
+                                },
+                                resetForm: true
+                            });
+                            return false;
+                        }
+                    });
+                });
+                
             });
         </script>
     </body>

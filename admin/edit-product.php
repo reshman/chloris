@@ -263,7 +263,6 @@
                                 for ($i = 0; $i < $no_of_images; $i++) {
                                     $sepext = explode('.', strtolower($_FILES['fileToUpload']['name'][$i]));
                                     $type = end($sepext);       // gets extension
-                                    
                                     //Removing Already existing product images
                                     $i1 = "product_images/chloris_product_" . $id . "_image_" . $i . ".jpg";
                                     chmod($i1, 0644);
@@ -420,7 +419,11 @@
                                                 <span class="btn btn-default btn-file"><span>Choose Images</span><input type="file" multiple id="fileToUpload" name="fileToUpload[]"/></span>
                                             </div>
                                         </div>
-
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-green progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
                                         <table class="table table-striped table-hover">
                                             <thead>
                                                 <tr>
@@ -460,6 +463,9 @@
 
         <!-- Bootstrap 3.3.6 -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- jquery form -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 
         <!-- Select2 -->
         <script src="plugins/select2/select2.full.min.js"></script>
@@ -522,6 +528,33 @@
                 $('#fileToUpload').change(function () {
                     fileToUploadFunction();
                 });
+
+                $('.progress').hide();
+                $(document).ready(function () {
+                    $('#addForm').submit(function (e) {
+                        if ($('#fileToUpload').val()) {
+                            e.preventDefault();
+                            $('.progress').show();
+                            $(this).ajaxSubmit({
+                                target: '',
+                                beforeSubmit: function () {
+                                    $(".progress-bar").width('0%');
+                                },
+                                uploadProgress: function (event, position, total, percentComplete) {
+                                    $(".progress-bar").width(percentComplete + '%');
+                                    $("#target").html('<div id="progress-status">' + percentComplete + ' %</div>')
+                                },
+                                success: function () {
+                                    $('.progress').fadeOut(2000, function () {
+                                    });
+                                },
+                                resetForm: true
+                            });
+                            return false;
+                        }
+                    });
+                });
+
             });
         </script>
     </body>
