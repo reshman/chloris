@@ -316,6 +316,8 @@
         <script src="plugins/fastclick/fastclick.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/app.min.js"></script>
+        <!-- jquery form -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
         <script>
                                                         function deleteConfirm(href) {
                                                             var ask = window.confirm("Are you sure you want to delete this item?");
@@ -352,7 +354,7 @@
                                                                         },
                                                                         success: function () {
                                                                             $('#target').text("Upload Completed");
-                                                                            $('.progress').fadeOut(2000,function(){location.reload();});
+                                                                            $('#uploadmodal').fadeOut(2500,function(){location.reload();});
                                                                         },
                                                                         resetForm: true
                                                                     });
