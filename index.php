@@ -110,49 +110,56 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </figcaption></a>			
                 </figure>
                 <div class="clearfix"></div>
-                <h3>Wedding Dresses</h3>
+                <h3>BOUQUETS</h3>
             </div>
             <div class="content-grid l-grids">
                 <figure class="effect-bubba">
+                    <a href="product.php?category=2">
                     <img src="images/b2.jpg" alt=""/>
                     <figcaption>
                         <h4>Nullam molestie </h4>
                         <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>																
-                    </figcaption>			
+                    </figcaption>
+                    </a>
                 </figure>	
                 <div class="clearfix"></div>
-                <h3>BridalParty & Dresses</h3>
+                <h3>ORNAMENTAL</h3>
             </div>
         </div>
         <div class="col-md-4 bride-grid">
             <div class="content-grid l-grids">
+                <a href="product.php?category=3">
                 <img src="images/brid.jpg" alt=""/>
-
-                <h3>Bridesmade Dresses</h3>
+                </a>
+                <h3>WEDDING FLOWER</h3>
             </div>
         </div>
         <div class="col-md-4 bride-grid">
             <div class="content-grid l-grids">
                 <figure class="effect-bubba">
+                    <a href="product.php?category=3">
                     <img src="images/b3.jpg" alt=""/>
                     <figcaption>
                         <h4>Nullam molestie </h4>
                         <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>																
-                    </figcaption>			
+                    </figcaption>
+                    </a>
                 </figure>	
                 <div class="clearfix"></div>
-                <h3>Wedding</h3>
+                <h3>WEDDING FLOWER</h3>
             </div>
             <div class="content-grid l-grids">
                 <figure class="effect-bubba">
+                    <a href="product.php?category=4">
                     <img src="images/b4.jpg" alt=""/>
                     <figcaption>
                         <h4>Nullam molestie </h4>
                         <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>																
-                    </figcaption>			
+                    </figcaption>
+                    </a>
                 </figure>
                 <div class="clearfix"></div>
-                <h3>Most Beautiful</h3>
+                <h3>GIFTING</h3>
             </div>
         </div>
         <div class="clearfix"></div>
