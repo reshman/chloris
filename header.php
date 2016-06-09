@@ -33,7 +33,7 @@
         ?>
         <!--        <div class="top-nav">	
             <div class="container">
-                <ul class="memenu skyblue"><li <?php if ($filename == 'index.php') { ?> class="active" <?php } ?> ><a href="index.php">Home</a></li>
+                <ul class="memenu skyblue"><li <?php if ($filename == 'index.php') { ?> class="active" <?php } ?> ><a href="index.php">HOME</a></li>
                     <li <?php if ($filename == 'product.php') { ?> class="active" <?php } ?> ><a href="product.php">SHOP</a></li>
                     <li class="grid"><a href="#">CLASSES</a></li>
                     <li <?php if ($filename == 'about.php' || $filename == 'contact.php') { ?> class="active" <?php } ?>><a href="#">MORE</a>
@@ -68,7 +68,7 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav menu">
-                        <li <?php if ($filename == 'index.php') { ?> class="active" <?php } ?>><a href="index.php">Home</a></li>
+                        <li <?php if ($filename == 'index.php') { ?> class="active" <?php } ?>><a href="index.php">HOME</a></li>
                         <li <?php if ($filename == 'product.php') { ?> class="active" <?php } ?>><a href="product.php">SHOP</a></li>
                         <li ><a href="#">CLASSES</a></li>
                         <li class="dropdown <?php if ($filename == 'about.php' || $filename == 'contact.php') { ?> active <?php } ?>">

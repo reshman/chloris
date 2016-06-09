@@ -2730,7 +2730,7 @@ span .active
 hr{margin-top:10px;margin-bottom:10px;border-top:1px solid #ddd !important;}
 li.active > a
 {
-color:red;
+color:red !important;
 }
 
 .navbar .navbar-nav {
@@ -2741,4 +2741,31 @@ color:red;
 
 .navbar .navbar-collapse {
     text-align: center;
+	font-size:16px;
+	padding:0px 8px;
+	font-weight: 400;
+line-height: 1.42857143;
+	letter-spacing: 1px;
+	color:#000 !important;
+	font-family: 'Fanwood Text', serif !important;
+}
+a{
+color:#000 !important;
+}
+a:hover{
+color:red !important;
+}
+.dropdown-menu > .active > a
+{
+background-color:#fff !important;
+}
+.dropdown-menu > li > a
+{
+padding: 13px 20px !important;
+font-size: 16px;
+font-family: 'Fanwood Text', serif !important;
+}
+.dropdown-menu > li > a:hover
+{
+color:red !important;
 }
