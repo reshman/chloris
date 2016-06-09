@@ -21,11 +21,11 @@
     </div>
 </div>
 <div class="header-top">
-    <div class="header-bottom">
-        <div class="logo">
-            <a href="index.php">
-                <h1>Floral Designs</h1></a>
-        </div>
+   <div class="header-bottom">
+        <div style="text-align:center;" class="logo1">
+	 <img src="images/logo.jpg"/>
+	 <hr>
+	 </div>
         <!---->
         <?php
         $url = $_SERVER['SCRIPT_FILENAME'];
@@ -70,6 +70,7 @@
                     <ul class="nav navbar-nav menu">
                         <li <?php if ($filename == 'index.php') { ?> class="active" <?php } ?>><a href="index.php">Home</a></li>
                         <li <?php if ($filename == 'product.php') { ?> class="active" <?php } ?>><a href="product.php">SHOP</a></li>
+                        <li ><a href="#">CLASSES</a></li>
                         <li class="dropdown <?php if ($filename == 'about.php' || $filename == 'contact.php') { ?> active <?php } ?>">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
                                 <span class="caret"></span></a>
