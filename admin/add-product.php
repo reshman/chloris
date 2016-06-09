@@ -31,6 +31,23 @@ ob_start();
         <!-- bootstrap wysihtml5 - text editor -->
         <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+
+        <!-- jQuery 2.2.0 -->
+        <script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+        <!-- Bootstrap 3.3.6 -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Select2 -->
+        <script src="plugins/select2/select2.full.min.js"></script>
+
+
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -40,6 +57,32 @@ ob_start();
         <style>
             table{
                 width: 50% !important;
+            }
+
+            .progress-container{
+                top:0;
+                bottom:0;
+                left:0;
+                right:0;
+                background-color: #333;
+                position: fixed;
+                z-index: <?= PHP_INT_MAX ?>;
+            }
+
+            .progress-container .progress{
+                width: 75%;
+                margin-top: 100px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .progress-container h1{
+                color:#fff;
+                margin-top: 15%;
+            }
+            
+            h3{
+                color:#fff;
             }
         </style>
     </head>
@@ -192,11 +235,12 @@ ob_start();
                             'type' => 'danger'
                         );
 
-                        header('location:add-product.php');
+                        echo '<script>window.location.href="add-product.php";</script>';
+//                        header('location:add-product.php');
                         exit();
                     }
-
-                    header('location:list-product.php');
+                    echo '<script>window.location.href="list-product.php";</script>';
+//                    header('location:list-product.php');
                     exit();
                 }
                 ?>
@@ -271,7 +315,7 @@ ob_start();
                                                 <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" multiple id="fileToUpload" name="fileToUpload[]"/></span>
                                             </div>
                                         </div>
-                                        
+
                                         <table class="table table-striped table-hover">
                                             <thead>
                                                 <tr>
@@ -304,24 +348,6 @@ ob_start();
         <!-- /.content-wrapper -->
         <?php include_once 'footer.php' ?>
 
-        <!-- jQuery 2.2.0 -->
-        <script src="plugins/jQuery/jQuery-2.2.0.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-
-        <!-- Bootstrap 3.3.6 -->
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        
-        <!-- jquery form -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
-        
-        <!-- Select2 -->
-        <script src="plugins/select2/select2.full.min.js"></script>
-
-
-        <!-- Bootstrap WYSIHTML5 -->
-        <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-
 
         <!-- AdminLTE App -->
         <script src="dist/js/app.min.js"></script>
@@ -330,49 +356,49 @@ ob_start();
         <!--<script src="dist/js/demo.js"></script>-->
 
         <script>
-            $(function () {
-                $(".select2").select2();
-                $(".textarea").wysihtml5();
-                function fileToUploadFunction() {
-                    var x = document.getElementById("fileToUpload");
-                    var txt = "";
-                    if ('files' in x) {
-                        if (x.files.length == 0) {
-                            txt = "<tr><td colspan='3'>Select Exactly four Images.</td></tr>";
-                        } else if (x.files.length < 4) {
-                            txt = "<tr><td colspan='3'>Selected fewer than 4 Images. Four Images are needed.</td></tr>";
-                            x.value = '';
-                        } else if (x.files.length > 4) {
-                            txt = "<tr><td colspan='3'>Selected more than 4 Images. Only four images are allowed</td></tr>";
-                            x.value = '';
-                        } else {
-                            for (var i = 0; i < x.files.length; i++) {
-                                var file = x.files[i];
-                                if ('name' in file) {
-                                    txt += "<tr><td>" + (i + 1) + ".</td><td>" + file.name + "</td>";
+                    $(function () {
+                        $(".select2").select2();
+                        $(".textarea").wysihtml5();
+                        function fileToUploadFunction() {
+                            var x = document.getElementById("fileToUpload");
+                            var txt = "";
+                            if ('files' in x) {
+                                if (x.files.length == 0) {
+                                    txt = "<tr><td colspan='3'>Select Exactly four Images.</td></tr>";
+                                } else if (x.files.length < 4) {
+                                    txt = "<tr><td colspan='3'>Selected fewer than 4 Images. Four Images are needed.</td></tr>";
+                                    x.value = '';
+                                } else if (x.files.length > 4) {
+                                    txt = "<tr><td colspan='3'>Selected more than 4 Images. Only four images are allowed</td></tr>";
+                                    x.value = '';
+                                } else {
+                                    for (var i = 0; i < x.files.length; i++) {
+                                        var file = x.files[i];
+                                        if ('name' in file) {
+                                            txt += "<tr><td>" + (i + 1) + ".</td><td>" + file.name + "</td>";
+                                        }
+                                        if ('size' in file) {
+                                            txt += "<td>" + file.size + " Bytes </td></tr>";
+                                        }
+                                    }
                                 }
-                                if ('size' in file) {
-                                    txt += "<td>" + file.size + " Bytes </td></tr>";
+                            } else {
+                                if (x.value == "") {
+                                    txt += "Select one or more files.";
+                                } else {
+                                    txt += "The files property is not supported by your browser!";
+                                    txt += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
                                 }
                             }
+                            document.getElementById("selected_details").innerHTML = txt;
                         }
-                    } else {
-                        if (x.value == "") {
-                            txt += "Select one or more files.";
-                        } else {
-                            txt += "The files property is not supported by your browser!";
-                            txt += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
-                        }
-                    }
-                    document.getElementById("selected_details").innerHTML = txt;
-                }
 
-                fileToUploadFunction();
-                $('#fileToUpload').change(function () {
-                    fileToUploadFunction();
-                });
-                
-            });
+                        fileToUploadFunction();
+                        $('#fileToUpload').change(function () {
+                            fileToUploadFunction();
+                        });
+
+                    });
         </script>
     </body>
 </html>

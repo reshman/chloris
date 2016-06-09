@@ -310,8 +310,6 @@
         <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
         <!-- Bootstrap WYSIHTML5 -->
         <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-        <!-- jquery form -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
         <!-- Slimscroll -->
         <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->
@@ -330,13 +328,13 @@
                                                             $('#uploadmodal').modal();
                                                             $('#uploadmodal #id').val(id);
                                                         }
-                                                        
-                                                        $('.progress').hide();
 
                                                         $('#uploadmodal #fileToUpload').change(function () {
                                                             var val = $('#uploadmodal #fileToUpload').val();
                                                             $('#uploadmodal #chosen').text(val);
                                                         });
+                                                        
+                                                        $('.progress').hide();
 
                                                         $(document).ready(function () {
                                                             $('#uploadForm').submit(function (e) {
