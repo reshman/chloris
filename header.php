@@ -10,6 +10,8 @@
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 <style>
+    
+    
 </style>
 <!--header-->	
 <div class="top_bg">
@@ -23,11 +25,11 @@
     </div>
 </div>
 <div class="header-top">
-   <div class="header-bottom">
+    <div class="header-bottom">
         <div style="text-align:center;" class="logo1">
-	 <img src="images/logo.jpg"/>
-	 <hr>
-	 </div>
+            <img src="images/logo.jpg"/>
+            <hr>
+        </div>
         <!---->
         <?php
         $url = $_SERVER['SCRIPT_FILENAME'];
@@ -64,7 +66,7 @@
         <nav class="navbar">
             <div class="navbar-header">
                 <div class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                    <span class="fa fa-bars" style="font-size: 35px;"></span>
+                    <span class="mob_menu_head">MENU</span><span class="fa fa-bars"></span>
                 </div>
             </div>
             <div class="container-fluid">
