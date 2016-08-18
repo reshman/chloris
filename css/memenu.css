@@ -1,5 +1,5 @@
 .memenu
-{margin:0;padding:0;width:100%;list-style:none;display:inline-block;position:relative;font-family:Calibri,Arial;font-size:115%}
+{margin:0;padding:0;width:100%;float:right;list-style:none;display:inline-block;position:relative;font-family:Calibri,Arial;font-size:115%}
 .memenu li{display:inline-block;text-align:left;}
 /*ul.memenu.skyblue {text-align: left;}*/
 .memenu>li>a{  /*font-family: 'JosefinSans-Regular';*/font-family: 'Fanwood Text', serif; float:left;padding: 5px 25px 5px 25px;color:#caccce;font-weight:400; letter-spacing:1px;text-decoration:none;text-transform:uppercase;transition:color .4s ease-in-out;-moz-transition:color .4s ease-in-out;-webkit-transition:color .4s ease-in-out;-o-transition:color .4s ease-in-out}
@@ -8,7 +8,7 @@
 	display: none;
 	background: #f7f7f7;
 	top: 37px;
-	left: 56%;
+	left: 58%;
 	z-index: 99;
 	padding: 15px 35px 0px;
 	-webkit-box-sizing: border-box;

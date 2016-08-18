@@ -1,9 +1,9 @@
 <?php
 /* Database config */
 $db_host		= 'localhost';
-$db_user		= 'rxarin_floral';
-$db_pass		= 'floarl@123';
-$db_database	= 'rxarin_floral'; 
+$db_user		= 'root';
+$db_pass		= '';
+$db_database	        = 'chloris'; 
 
 /* End config */
 

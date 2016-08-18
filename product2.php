@@ -40,12 +40,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header-top">
 	 <div class="header-bottom">
 				<div class="logo">
-					<a href="index.html">
+					<a href="index1.html">
 					<h1>Floral Designs</h1></a>
 				</div>
 		 <div class="container">	
 			 <div class="top-nav">
-				<ul class="memenu skyblue"><li class="grid"><a href="index.html">Home</a></li>
+				<ul class="memenu skyblue"><li class="grid"><a href="index1.html">Home</a></li>
 					<li class="active"><a href="product.php">SHOP</a></li>
 					<li class="grid"><a href="#">CLASSES</a></li>
 					<li class="grid"><a href="#">MORE</a>
@@ -73,7 +73,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="product-model">	 
 	 <div class="container">
 		 <ol class="breadcrumb">
-		  <li><a href="index.html">Home</a></li>
+		  <li><a href="index1.html">Home</a></li>
 		  <li class="active">Products</li>
 		 </ol>
 		 <h2>Our Products</h2>	

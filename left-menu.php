@@ -1,8 +1,19 @@
 <?php
+<<<<<<< Updated upstream
 if(isset($_GET['category'])){
     $catId = $_GET['category'];
 }else{
     $catId = 1;
+=======
+include 'db.php';
+if(isset($_GET['category'])){
+    $catId = $_GET['category'];
+}else{
+    $sqlDefaultCat = sprintf("SELECT * FROM category ORDER BY order_by LIMIT 1");
+    $sqlDefaultCategoryResult = mysqli_query($link, $sqlDefaultCat);
+    $rowDefaultCategory = mysqli_fetch_assoc($sqlDefaultCategoryResult);
+    $catId = $rowDefaultCategory['id'];
+>>>>>>> Stashed changes
 }
 ?>
 <div class="rsidebar span_1_of_left">
@@ -10,8 +21,8 @@ if(isset($_GET['category'])){
         <div class="product_right">
             <h4 class="m_2">Categories</h4>
             <?php
-            include 'db.php';
-            $sqlQuery = sprintf("SELECT * FROM category");
+            
+            $sqlQuery = sprintf("SELECT * FROM category ORDER BY order_by");
             $sqlResult = mysqli_query($link, $sqlQuery);
             if (mysqli_num_rows($sqlResult) > 0) {
                 while ($rowCategory = mysqli_fetch_assoc($sqlResult)) {

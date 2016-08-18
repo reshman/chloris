@@ -4,11 +4,9 @@ if($_GET){
     include_once 'db.php';
     $query = sprintf("DELETE FROM product WHERE id=%d",$id);
     $result = mysqli_query( $link, $query );
-    
     //delete images 
     $queryFlower = sprintf("DELETE FROM product_image WHERE product_id=%d",$id);
     $resultFlower = mysqli_query( $link, $queryFlower );
-    
     if($result){
         $_SESSION['error'] = array(
             'message' => "Deleted product Succesfully",

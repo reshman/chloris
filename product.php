@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php //include_once 'logincheck.php';?>
 <html>
     <head>
         <title>Chloris Designs</title>
@@ -35,6 +36,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li class="active">Products</li>
             </ol>
+            <div class="row" id="alertmsgs"></div>
             <h2>Our Products</h2>	
             <?php include 'left-menu.php'; ?>   		
             <div class="col-md-9 product-model-sec">
@@ -42,15 +44,15 @@
                 if (isset($_GET['category'])) {
                     $category_id = $_GET['category'];
                 } else {
-                    $sqlCategory = sprintf("SELECT id FROM category WHERE category='%s'", 'BOUQUETS');
+                    $sqlCategory = sprintf("SELECT id FROM category WHERE id='%s'", $catId);
                     $resultCategory = mysqli_query($link, $sqlCategory);
                     $rowCategory = mysqli_fetch_assoc($resultCategory);
                     $category_id = $rowCategory['id'];
                 }
 
                 // Select products
-//              $sqlProduct = sprintf("SELECT p.id, p.price, pi.image_name from product p LEFT JOIN product_image pi ON p.id = pi.product_id WHERE category_id=%d", $category_id);
-                $sqlProduct = sprintf("SELECT * from product WHERE category_id=%d", $category_id);
+                //$sqlProduct = sprintf("SELECT p.id, p.price, pi.image_name from product p LEFT JOIN product_image pi ON p.id = pi.product_id WHERE category_id=%d LIMIT 1", $category_id);
+                $sqlProduct = sprintf("SELECT * from product WHERE category_id=%d AND qty > %d", $category_id, 0);
                 $resultProduct = mysqli_query($link, $sqlProduct);
 
                 if (mysqli_num_rows($resultProduct) > 0) {
@@ -65,7 +67,7 @@
                             <div class="product-grid love-grid">
                                 <div class="more-product"><span> </span></div>						
                                 <div class="product-img b-link-stripe b-animate-go  thickbox">
-                                    <img src="admin/product_images/<?php echo $productRow['image_name']; ?>" class="img-responsive" alt=""/>
+                                    <img src="admin/product_images/<?php echo $flowerRow['image_name']; ?>" class="img-responsive" alt=""/>
                                     <div class="b-wrapper">
                                         <h4 class="b-animate b-from-left  b-delay03">							
                                             <button class="btns"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Quick View</button>
@@ -74,15 +76,43 @@
                                 </div>		
                                 <div class="product-info simpleCart_shelfItem">
                                     <div class="product-info-cust prt_name">
-                                        <h4>Flower #<?php echo $i; ?></h4>
+                                        <h4><?php echo strtoupper($productRow['name']); ?></h4>
                                         <p>ID: <?php echo $productRow['id']; ?></p>
-                                        <p class="item_price">Item Price: <?php echo $productRow['price']; ?></p>								
-                                        <!--<input type="text" class="item_quantity" value="1" />-->
-                                        <input type="button" class="item_add items" value="BUY">
+                                        <?php if ($productRow['price'] == $productRow['sprice']) { ?>
+                                            <p class="item_price">Selling Price: € <?php echo $productRow['sprice']; ?></p> 
+                                            <?php } else {
+                                            ?>
+                                            <p class="item_price">Item Price: <del>€ <?php echo $productRow['price']; ?></del></p>		
+                                            <p class="item_price">Selling Price: € <?php echo $productRow['sprice']; ?></p> 
+                                        <?php } ?>
+                                        <div class="row">
+                                            <div class="text-center">
+                                                <a class="btn btn-default btn1 addtocart" productid="<?php echo $productRow['id']; ?>" href="javascript:void(0)" role="button">Add To Cart</a>
+                                            </div>
+                                        </div>
+
+
+                                            <!--<input type="text" class="item_quantity" value="1" />-->
+                                            <!--<input type="button" class="item_add items" value="BUY">-->
+
+                                        <!--<form class="paypal" action="https://www.sandbox.paypal.com/en/cgi-bin/webscr" method="post" id="paypal_form" >
+                                            <fieldset>
+                                                <input type="hidden" name="cmd" value="_cart" />
+                                                <input type="hidden" name="business" value="s.reshman+localseller@gmail.com">
+                                                <input type="hidden" name="item_name" value="<?php /* echo $productRow['name']; */ ?>" />
+                                                <input type="hidden" name="amount" value="<?php /* echo $productRow['sprice']; */ ?>" />
+                                                <input type="hidden" name="currency_code" value="EUR" />
+                                                <input type="hidden" name="item_number" value="<?php /* echo $productRow['id'] */ ?>" / >
+                                                <input type="hidden" name="notify_url" value="http://demox.imrokraft.com/chloris/paypal_ipn.php">
+                                                    <input type="hidden" name="undefined_quantity" value="1">
+                                                    <input type="image" src="http://www.paypalobjects.com/en_US/i/btn/x-click-but22.gif" border="0" name="submit" width="87" height="23" alt="Make payments with PayPal - it's fast, free and secure!">
+                                            </fieldset>
+                                        </form>-->
+
+
                                     </div>													
                                     <div class="clearfix"> </div>
                                 </div>
-                            </div>
                         </a>
                         <?php
                         $i = $i + 1;
@@ -96,3 +126,33 @@
 </div>
 </body>
 </html>
+
+<script>
+    $(function () {
+        $('.addtocart').on('click', function () {
+            var product_id = $(this).attr('productid');
+
+            $.ajax({
+                url: 'addtocart.php?id=' + product_id,
+                async: false
+            }).done(function (data) {
+
+                $('#alertmsgs').html(data);
+
+                $('html,body').animate({
+                    scrollTop: $('#alertmsgs').offset().top
+                }, 1000);
+            })
+
+            $.ajax({
+                url: 'list-cart-items.php',
+                async: false
+            }).done(function (item) {
+                $('#modal-dialog-affix').html(item)
+            })
+
+
+        })
+    })
+</script>
+

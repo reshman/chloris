@@ -8,10 +8,10 @@ include_once 'db.php';
 
 
 // PayPal settings
-$paypal_email = 's.reshman+seller@gmail.com';
-$return_url = 'http://chloris.local/payment-successful.html';
-$cancel_url = 'http://chloris.local/payment-cancelled.html';
-$notify_url = 'http://chloris.local/payments.php';
+$paypal_email = 'jayadevathira@gmail.com';
+$return_url = 'http://demox.imrokraft.com/chloris/payment-successful.html';
+$cancel_url = 'http://demox.imrokraft.com/chloris/payment-cancelled.html';
+$notify_url = 'http://demox.imrokraft.com/chloris/payments.php';
 
 $item_name = $_POST['item_name'];
 $item_amount = $_POST['amount'];

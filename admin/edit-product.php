@@ -170,6 +170,7 @@
                     $price = sanatizeInput($_POST['price'], 'int');
                     $sprice = sanatizeInput($_POST['sprice'], 'int');
                     $category = sanatizeInput($_POST['category'], 'int');
+                    $deliveryDay = sanatizeInput($_POST['deliverydays'], 'int');
 
                     if (empty($flowername)) {
                         $error .= 'Flower name cant be empty!<br/>';
@@ -178,10 +179,9 @@
                     if (empty($description)) {
                         $error .= 'Description cant be empty!<br/>';
                     }
-
-                    if (empty($specification)) {
+                    /* if (empty($specification)) {
                         $error .= 'Specification cant be empty!<br/>';
-                    }
+                    }*/
 
                     if (empty($qty)) {
                         $error .= 'Quantity cant be empty!<br/>';
@@ -236,7 +236,7 @@
                                 price ='%s',
                                 sprice = '%s',
                                 specification='%s',
-                                category_id = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice, $specification, $category, $product_id);
+                                category_id = '%s', estimated_days = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice, $specification, $category, $deliveryDay, $product_id);
 
                             $resultProduct = mysqli_query($link, $sqlProduct);
 
@@ -304,7 +304,7 @@
                                 price ='%s',
                                 sprice = '%s',
                                 specification='%s',
-                                category_id = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice, $specification, $category, $product_id);
+                                category_id = '%s', estimated_days = '%s' WHERE id=%d", $flowername, $description, $qty, $price, $sprice, $specification, $category, $deliveryDay, $product_id);
 
                             $resultProduct = mysqli_query($link, $sqlProduct);
 
@@ -412,6 +412,15 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Selling Price</label>
                                             <input type="text" name="sprice" id="sprice" class="form-control" placeholder="Price" value="<?= $product_data['sprice'] ?>">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Estimated Delivery In Days</label>
+                                            <select class="form-control select2" name="deliverydays">
+                                                <?php for ($i = 1; $i < 100; $i++): ?>
+                                                    <option value="<?php echo $i ?>"><?php echo $i ?> days</option>
+                                                <?php endfor; ?>
+                                            </select>
                                         </div>
 
                                         <div class="form-group">

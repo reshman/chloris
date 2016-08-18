@@ -117,12 +117,13 @@ ob_start();
 
 
                     $flowername = sanatizeInput($_POST['flowername'], 'string');
-                    $description = trim($_POST['description']);
+                    $description = mysqli_real_escape_string($link, $_POST['description']);
                     $specification = trim($_POST['specification']);
                     $qty = sanatizeInput($_POST['qty'], 'int');
                     $price = sanatizeInput($_POST['price'], 'int');
                     $sprice = sanatizeInput($_POST['sprice'], 'int');
                     $category = sanatizeInput($_POST['category'], 'int');
+		    $deliveryDay = sanatizeInput($_POST['deliverydays'], 'int');
 
                     if (empty($flowername)) {
                         $error .= 'Flower name cant be empty!<br/>';
@@ -140,9 +141,9 @@ ob_start();
                         $error .= 'Price is not numeric!<br/>';
                     }
 
-                    if (empty($specification)) {
+                    /* if (empty($specification)) {
                         $error .= 'Specification cant be empty!<br/>';
-                    }
+                    } */
 
                     if (empty($sprice)) {
                         $error .= 'Selling Price cant be empty!<br/>';
@@ -182,7 +183,7 @@ ob_start();
                                 specification = '%s',
                                 qty = '%s',
                                 price ='%s',
-                                sprice = '%s', category_id = '%s'", $flowername, $description, $specification, $qty, $price, $sprice, $category);
+                                sprice = '%s', category_id = '%s', estimated_days = '%s'", $flowername, $description, $specification, $qty, $price, $sprice, $category, $deliveryDay);
 
                             $resultProduct = mysqli_query($link, $sqlProduct);
 
@@ -307,6 +308,15 @@ ob_start();
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Selling Price</label>
                                             <input type="text" name="sprice" id="sprice" class="form-control" placeholder="Price">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Estimated Delivery In Days</label>
+                                            <select class="form-control select2" name="deliverydays">
+                                                <?php for ($i = 1; $i < 100; $i++): ?>
+                                                    <option value="<?php echo $i ?>"><?php echo $i ?> days</option>
+                                                <?php endfor; ?>
+                                            </select>
                                         </div>
 
                                         <div class="form-group">

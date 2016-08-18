@@ -200,6 +200,7 @@
                                             <tr><th>Selling Price</th><td><?php echo $productRow['sprice'] ?></td></tr>
                                             <tr><th>Quantity</th><td><?php echo $productRow['qty'] ?></td></tr>
                                             <tr><th>Category</th><td><?php echo $categoryRow['category'] ?></td></tr>
+                                            <tr><th>Estimated Delivery Period</th><td><?php echo $productRow['estimated_days'] ?> days</td></tr>
                                             <tr><th style="width: 100px">Actions</th>
                                                 <td>
                                                     <a href="edit-product.php?id=<?= $productRow['id'] ?>" class="btn btn-default btn-success"> <i class="fa fa-edit"></i></a>

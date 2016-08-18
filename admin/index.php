@@ -27,7 +27,7 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="index.php"><b>Admin</b>Chloris</a>
+                <a href="../../index2.html"><b>Admin</b>Chloris</a>
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">

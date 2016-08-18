@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< Updated upstream
 <title>Chloris Designs | Home </title>
 <link href='https://fonts.googleapis.com/css?family=Fanwood+Text' rel='stylesheet' type='text/css'>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -20,12 +21,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="js/memenu.js"></script>
 <!-- /start menu -->
+=======
+    <title>Chloris Designs | Home </title>
+    <link href='https://fonts.googleapis.com/css?family=Fanwood+Text' rel='stylesheet' type='text/css'>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Wedding Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- start menu -->
+    <script src="js/simpleCart.min.js"> </script>
+    <!-- start menu -->
+    <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="js/memenu.js"></script>
+    <!-- /start menu -->
+>>>>>>> Stashed changes
 </head>
-<body> 
+<body>
 <div class="full">
 <?php
 /* Include header */
-  include 'header.php';
+include 'header.php';
 ?>
 
 <!--banner-starts-->
@@ -57,8 +79,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="clearfix"> </div>
     </div>
-</div>    
-<!--banner-ends--> 
+</div>
+<!--banner-ends-->
 <!--Slider-Starts-Here-->
 <script src="js/responsiveslides.min.js"></script>
 <script>
@@ -89,11 +111,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h2>Welcome to our site</h2>
         </div>
         <div class="col-md-9 welcome-right">
-            <h3>Proin ornare massa eu enim pretium efficitur.</h3>
-            <p>Etiam fermentum consectetur nulla, sit amet dapibus orci sollicitudin vel. 
-                Nulla consequat turpis in molestie fermentum. In ornare, tellus non interdum ultricies, elit 
-                ex lobortis ex, aliquet accumsan arcu tortor in leo. Nullam molestie elit enim. Donec ac 
-                aliquam quam, ac iaculis diam. Donec finibus scelerisque erat, non convallis felis commodo ac.</p>
+            <!--<h3>Proin ornare massa eu enim pretium efficitur.</h3>-->
+            <p>
+	            We specialize in handcrafted memorable designs that blend your sensibilities to 
+	            produce pieces of art work that last long. Our online store gives you the opportunity 
+	            to explore and own unique handmade flowers, bouquets, corsages, boutonnieres, wedding flowers, showpieces and many more.
+            </p>
+            <p>
+	            This is your road to own a wonderful piece of art. We also specialize in customized designs on request. 
+	            We ship to locations across the world using reputable courier service.
+            </p>
+            <p>
+            	    Take this opportunity to own this wonderful handcrafted memorable piece of art by our designer Athira.
+            </p>
         </div>
     </div>
 </div>
@@ -103,17 +133,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="col-md-4 bride-grid">
             <div class="content-grid l-grids">
                 <figure class="effect-bubba">
+<<<<<<< Updated upstream
                     <a href="product.php?category=1"><img src="images/b1.jpg" alt=""/>
                     <figcaption>
                         <h4>Nullam molestie </h4>
                         <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>																
                     </figcaption></a>			
+=======
+                    <a href="product.php?category=1"><img src="images/botique.jpg" alt=""/>
+                        <!--figcaption>
+                            <h4>Nullam molestie </h4>
+                            <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
+                        </figcaption--></a>
+>>>>>>> Stashed changes
                 </figure>
                 <div class="clearfix"></div>
                 <h3>BOUQUETS</h3>
             </div>
             <div class="content-grid l-grids">
                 <figure class="effect-bubba">
+<<<<<<< Updated upstream
                     <a href="product.php?category=2">
                     <img src="images/b2.jpg" alt=""/>
                     <figcaption>
@@ -124,20 +163,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </figure>	
                 <div class="clearfix"></div>
                 <h3>ORNAMENTAL</h3>
+=======
+                    <a href="product.php?category=4">
+                        <img src="images/b4.jpg" alt="" />
+                        <!--figcaption>
+                            <h4>Nullam molestie </h4>
+                            <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
+                        </figcaption-->
+                    </a>
+                </figure>
+                <div class="clearfix"></div>
+                <h3>GIFTING</h3>
+>>>>>>> Stashed changes
             </div>
         </div>
         <div class="col-md-4 bride-grid">
             <div class="content-grid l-grids">
+<<<<<<< Updated upstream
                 <a href="product.php?category=3">
                 <img src="images/brid.jpg" alt=""/>
                 </a>
                 <h3>WEDDING FLOWER</h3>
+=======
+                <figure class="effect-bubba">
+                    <a href="product.php?category=2">
+                        <img src="images/Ornamental.JPG" height=510 alt=""/>
+                        <!--figcaption>
+                            <h4>Nullam molestie </h4>
+                            <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
+                        </figcaption-->
+                    </a>
+                </figure>
+                <div class="clearfix"></div>
+                <h3>ORNAMENTAL</h3>
+>>>>>>> Stashed changes
             </div>
+
+
         </div>
         <div class="col-md-4 bride-grid">
             <div class="content-grid l-grids">
                 <figure class="effect-bubba">
                     <a href="product.php?category=3">
+<<<<<<< Updated upstream
                     <img src="images/b3.jpg" alt=""/>
                     <figcaption>
                         <h4>Nullam molestie </h4>
@@ -145,10 +213,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </figcaption>
                     </a>
                 </figure>	
+=======
+                        <img src="images/Wedding_flower_2.jpg" alt=""/>
+                        <!--figcaption>
+                            <h4>Nullam molestie </h4>
+                            <p>In sit amet sapien eros Integer in tincidunt labore et dolore magna aliqua</p>
+                        </figcaption-->
+                    </a>
+                </figure>
+>>>>>>> Stashed changes
                 <div class="clearfix"></div>
                 <h3>WEDDING FLOWER</h3>
             </div>
             <div class="content-grid l-grids">
+<<<<<<< Updated upstream
                 <figure class="effect-bubba">
                     <a href="product.php?category=4">
                     <img src="images/b4.jpg" alt=""/>
@@ -160,7 +238,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </figure>
                 <div class="clearfix"></div>
                 <h3>GIFTING</h3>
+=======
+            	<figure class="effect-bubba">
+                    <a href="product.php?category=3">
+                        <img src="images/wedding_flower.jpg" alt=""/>
+                    </a>
+                </figure>
+                <div class="clearfix"></div>
+                <h3>WEDDING FLOWER</h3>
+>>>>>>> Stashed changes
             </div>
+
         </div>
         <div class="clearfix"></div>
     </div>
@@ -269,6 +357,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 include 'footer.php';
 ?>
 </div>
-</div> 
+</div>
 </body>
 </html>

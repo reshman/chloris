@@ -1,4 +1,3 @@
-
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -33,7 +32,7 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-files-o"></i>
+                    <i class="fa fa-tags"></i>
                     <span>Products</span>
                 </a>
                 <ul class="treeview-menu">
@@ -41,7 +40,18 @@
                     <li><a href="list-product.php"><i class="fa fa-circle-o"></i> List Product</a></li>
                 </ul>
             </li>
+<<<<<<< Updated upstream
 <!--            <li class="treeview">
+=======
+            
+            <li class="treeview">
+                <a href="orders.php">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <!--<li class="treeview">
+>>>>>>> Stashed changes
                 <a href="#">
                     <i class="fa fa-files-o"></i>
                     <span>Categories</span>
